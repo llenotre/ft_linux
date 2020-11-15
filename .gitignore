@@ -1,2 +1,9 @@
+kernel_src/
 sources/
 builds/
+
+*.tar.xz
+
+vmlinuz-*
+iso/
+*.iso
