@@ -1,6 +1,10 @@
 KERNEL_VERSION = 4.19.157
-KERNEL_BIN = vmlinuz-$(KERNEL_VERSION)-llenotre
 KERNEL_SRC = kernel_src/
+KERNEL_BIN = $(KERNEL_SRC)/vmlinux
+KERNEL_BIN_NAME = vmlinuz-$(KERNEL_VERSION)-llenotre
+
+all: compile_packages $(KERNEL_BIN)
+	./compile_packages.sh
 
 $(KERNEL_BIN):
 	./download_kernel.sh
@@ -12,14 +16,13 @@ $(KERNEL_BIN):
 	make -C $(KERNEL_SRC)
 	cp kernel_src/vmlinux $(KERNEL_BIN)
 
-# TODO Compile packages
-
 tmp: tmp_linux.iso
 
-tmp_linux.iso: $(KERNEL) grub.cfg
+tmp_linux.iso: $(KERNEL_BIN) grub.cfg
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
-	cp $(KERNEL_BIN) iso/boot/
+	cp $(KERNEL_BIN) iso/boot/$(KERNEL_BIN_NAME)
+# TODO Copy packages
 	grub-mkrescue -o $@ iso
 
 clean:
@@ -28,7 +31,7 @@ clean:
 	rm -rf iso/
 
 fclean: clean
+	rm -rf pkg_sources
 	rm -f $(KERNEL_BIN)
-	# TODO Remove packages executables
 
-.PHONY: download_kernel tmp clean fclean
+.PHONY: compile_packages tmp clean fclean
