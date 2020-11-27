@@ -3,7 +3,7 @@ KERNEL_SRC = kernel_src/
 KERNEL_BIN = $(KERNEL_SRC)/vmlinux
 KERNEL_BIN_NAME = vmlinuz-$(KERNEL_VERSION)-llenotre
 
-all: compile_packages $(KERNEL_BIN)
+all: compile_packages tmp_linux.iso
 	./compile_packages.sh
 
 $(KERNEL_BIN):
