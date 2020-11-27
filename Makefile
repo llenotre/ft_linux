@@ -14,7 +14,6 @@ $(KERNEL_BIN):
 	make -C $(KERNEL_SRC) prepare
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
-	cp kernel_src/vmlinux $(KERNEL_BIN)
 
 tmp: tmp_linux.iso
 
