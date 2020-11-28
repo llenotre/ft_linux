@@ -49,4 +49,6 @@ fclean: clean
 	rm -rf pkg_sources
 	rm initramfs.img
 
-.PHONY: compile_packages tmp clean fclean
+re: fclean all
+
+.PHONY: compile_packages tmp clean fclean re
