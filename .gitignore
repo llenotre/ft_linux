@@ -8,3 +8,6 @@ pkg_out/
 vmlinuz-*
 iso/
 *.iso
+
+initramfs/
+initramfs.img
