@@ -18,7 +18,7 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
 
-$(INITRAMFS): Makefile init #compile_packages
+$(INITRAMFS): Makefile init compile_packages
 	rm -rf $(INITRAMFS_DIR)
 	mkdir -p $(INITRAMFS_DIR)/{bin,sbin,etc,proc,sys}
 	cp init $(INITRAMFS_DIR)
@@ -38,10 +38,12 @@ tmp_linux.iso: $(INITRAMFS) grub.cfg #$(KERNEL_BIN)
 clean:
 	make -C $(KERNEL_SRC) clean
 	make -C $(KERNEL_SRC) mrproper
+	rm -rf pkg_builds/
 	rm -rf initramfs/
 	rm -rf iso/
 
 fclean: clean
+	# TODO Remove kernel source archive
 	rm -rf $(KERNEL_SRC)
 	rm -f $(KERNEL_BIN)
 	rm -rf pkg_sources
