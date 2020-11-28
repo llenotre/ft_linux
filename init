@@ -1,0 +1,7 @@
+#!/bin/bash
+
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+
+mknod /dev/null c 1 3
+mknod /dev/tty c 5 0

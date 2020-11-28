@@ -4,6 +4,7 @@ KERNEL_BIN = $(KERNEL_SRC)/arch/x86/boot/bzImage
 KERNEL_BIN_NAME = vmlinuz-$(KERNEL_VERSION)-llenotre
 
 INITRAMFS = initramfs.img
+INITRAMFS_DIR = initramfs/
 
 all: compile_packages tmp_linux.iso
 	./compile_packages.sh
@@ -16,8 +17,9 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC)
 
 $(INITRAMFS): Makefile
-	mkdir -p initramfs/{bin,etc,proc,sys}
-	cd initramfs/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
+	mkdir -p $(INITRAMFS_DIR)/{bin,sbin,etc,proc,sys}
+	cp init $(INITRAMFS_DIR)
+	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
 
 tmp: tmp_linux.iso
 
