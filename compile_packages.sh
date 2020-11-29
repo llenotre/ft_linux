@@ -3,11 +3,17 @@
 get_tarballs() {
 	mkdir -p pkg_tarballs
 	cd pkg_tarballs
-	cat ../source_urls | while read file; do
-		output=${file##*/}
+	cat ../source_urls | while read pkg; do
+		checksum=${pkg##* }
+		url=${pkg## *}
+		output=${url##*/}
 		if ! stat $output >/dev/null 2>&1; then
-			echo "Downloading $file";
-			curl "$file" --output "$output";
+			echo "Downloading $output (checksum: $checksum)";
+			curl "$url" --output "$output";
+
+			echo $checksum >/tmp/ft_linux_checksum0;
+			md5sum "$file" >/tmp/ft_linux_checksum1 | cut -d ' ' -f 1;
+			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1;
 		fi
 	done
 	cd ..
@@ -19,8 +25,7 @@ extract_sources() {
 		cd pkg_sources
 		ls -1 ../pkg_tarballs | while read file; do
 			echo "Extracting $file";
-			tar xvf ../pkg_tarballs/"$file" >/dev/null 2>&1;
-			unzip ../pkg_tarballs/"$file" >/dev/null 2>&1;
+			tar zxvf ../pkg_tarballs/"$file" >/dev/null;
 		done
 		cd ..
 	fi
@@ -33,7 +38,7 @@ compile_sources() {
 		echo "Compiling $file";
 		mkdir $file
 		cd $file
-		../../pkg_sources/$file/configure
+		../../pkg_sources/$file/configure --prefix=/
 		make
 		cd ..
 	done
