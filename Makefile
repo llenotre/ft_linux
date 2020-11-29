@@ -28,7 +28,7 @@ $(INITRAMFS): Makefile init compile_packages
 
 tmp: tmp_linux.iso
 
-tmp_linux.iso: $(INITRAMFS) grub.cfg #$(KERNEL_BIN)
+tmp_linux.iso: $(KERNEL_BIN) $(INITRAMFS) grub.cfg
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
 	cp $(KERNEL_BIN) iso/boot/$(KERNEL_BIN_NAME)

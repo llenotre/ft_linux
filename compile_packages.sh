@@ -1,8 +1,8 @@
 #!/bin/bash
 
-get_sources() {
-	mkdir -p pkg_sources
-	cd pkg_sources
+get_tarballs() {
+	mkdir -p pkg_tarballs
+	cd pkg_tarballs
 	cat ../source_urls | while read file; do
 		output=${file##*/}
 		if ! stat $output >/dev/null 2>&1; then
@@ -14,31 +14,32 @@ get_sources() {
 }
 
 extract_sources() {
-	if ! stat pkg_builds >/dev/null 2>&1; then
-		mkdir -p pkg_builds
+	if ! stat pkg_sources >/dev/null 2>&1; then
+		mkdir -p pkg_sources
 		cd pkg_sources
-		ls -1 | while read file; do
+		ls -1 ../pkg_tarballs | while read file; do
 			echo "Extracting $file";
-			tar xvf "$file" -C ../pkg_builds >/dev/null 2>&1;
-			unzip "$file" -C ../pkg_builds >/dev/null 2>&1;
+			tar xvf ../pkg_tarballs/"$file" >/dev/null 2>&1;
+			unzip ../pkg_tarballs/"$file" >/dev/null 2>&1;
 		done
 		cd ..
 	fi
 }
 
 compile_sources() {
-	mkdir -p pkg_out
+	mkdir -p pkg_builds
 	cd pkg_builds
-	ls -1 | while read file; do
+	ls -1 ../pkg_sources | while read file; do
 		echo "Compiling $file";
+		mkdir $file
 		cd $file
-		./configure --prefix ../pkg_out
+		../../pkg_sources/$file/configure
 		make
 		cd ..
 	done
 	cd ..
 }
 
-get_sources
+get_tarballs
 extract_sources
 compile_sources

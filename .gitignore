@@ -1,6 +1,5 @@
 kernel_src/
-pkg_sources/
-pkg_builds/
+pkg_*
 
 *.tar.xz
 
