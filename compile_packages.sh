@@ -4,16 +4,16 @@ get_tarballs() {
 	mkdir -p pkg_tarballs
 	cd pkg_tarballs
 	cat ../source_urls | while read pkg; do
-		checksum=${pkg##* }
-		url=${pkg## *}
+		checksum=`echo $pkg | cut -d ' ' -f 2`
+		url=`echo $pkg | cut -d ' ' -f 1`
 		output=${url##*/}
 		if ! stat $output >/dev/null 2>&1; then
-			echo "Downloading $output (checksum: $checksum)";
-			curl "$url" --output "$output";
+			echo "Downloading $output (url: $url checksum: $checksum)"
+			curl "$url" --output "$output"
 
-			echo $checksum >/tmp/ft_linux_checksum0;
-			md5sum "$file" >/tmp/ft_linux_checksum1 | cut -d ' ' -f 1;
-			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1;
+			echo $checksum >/tmp/ft_linux_checksum0
+			md5sum "$output" | cut -d ' ' -f 1 >/tmp/ft_linux_checksum1
+			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1 || { echo "Checksum doesn't correspond!"; rm $output; exit; }
 		fi
 	done
 	cd ..
