@@ -9,7 +9,7 @@ get_tarballs() {
 		output=${url##*/}
 		if ! stat $output >/dev/null 2>&1; then
 			echo "Downloading $output (url: $url checksum: $checksum)"
-			curl "$url" --output "$output"
+			wget -O "$output" "$url"
 
 			echo $checksum >/tmp/ft_linux_checksum0
 			md5sum "$output" | cut -d ' ' -f 1 >/tmp/ft_linux_checksum1
