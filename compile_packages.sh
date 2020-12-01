@@ -13,7 +13,11 @@ get_tarballs() {
 
 			echo $checksum >/tmp/ft_linux_checksum0
 			md5sum "$output" | cut -d ' ' -f 1 >/tmp/ft_linux_checksum1
-			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1 || { echo "Checksum doesn't correspond!"; rm $output; exit; }
+			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1 || {
+				echo "Checksum doesn't correspond!";
+				rm $output;
+				exit;
+			}
 		fi
 	done
 	cd ..
@@ -38,8 +42,9 @@ compile_sources() {
 		echo "Compiling $file";
 		mkdir $file
 		cd $file
-		../../pkg_sources/$file/configure --prefix=/
+		SYSROOT="../../initramfs/" ../../pkg_sources/$file/configure --with-sysroot="../../initramfs/" --with-install-sysroot="../../initramfs/"
 		make
+		make install
 		cd ..
 	done
 	cd ..

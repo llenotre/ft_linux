@@ -8,9 +8,6 @@ INITRAMFS_DIR = initramfs/
 
 all: tmp_linux.iso
 
-compile_packages:
-	./compile_packages.sh
-
 $(KERNEL_BIN): Makefile
 	./download_kernel.sh
 	make -C $(KERNEL_SRC) xconfig
@@ -18,9 +15,10 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
 
-$(INITRAMFS): Makefile init #compile_packages
+$(INITRAMFS): Makefile init
 	rm -rf $(INITRAMFS_DIR)
 	mkdir -p $(INITRAMFS_DIR)/{bin,sbin,lib,etc,proc,sys}
+	./compile_packages.sh
 	cp init $(INITRAMFS_DIR)
 	cp pkg_builds/bash-5.1-rc2/bash $(INITRAMFS_DIR)/bin/
 	cp `find pkg_builds/coreutils-8.32/src/ -type f -executable` $(INITRAMFS_DIR)/bin/
@@ -52,4 +50,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: compile_packages tmp clean fclean re
+.PHONY: prepeare_initramfs tmp clean fclean re
