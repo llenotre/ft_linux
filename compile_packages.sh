@@ -35,15 +35,15 @@ extract_sources() {
 	fi
 }
 
-compile_package(name) {
+compile_package() {
+	name=$1
 	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
+	echo ouput path: $initramfs_path
 
 	echo "Compiling $name";
 	mkdir $name
 	cd $name
-	../../pkg_sources/$name/configure --with--sysroot=$(initramfs_path) --prefix=$(initramfs_path)
-	make
-	make install
+	../../pkg_sources/$name/configure --with--sysroot=$initramfs_path --prefix=$initramfs_path && make && make install
 	cd ..
 }
 
@@ -51,13 +51,17 @@ compile_sources() {
 	mkdir -p pkg_builds
 	cd pkg_builds
 
-	compile_package($(ls -1 ../pkg_sources | grep ^glibc-))
-	compile_package($(ls -1 ../pkg_sources | grep ^gcc-))
+	compile_package $(ls -1 ../pkg_sources | grep ^glibc-)
+	compile_package $(ls -1 ../pkg_sources | grep ^gmp-)
+	compile_package $(ls -1 ../pkg_sources | grep ^mpfr-)
+	compile_package $(ls -1 ../pkg_sources | grep ^mpc-)
+	#CFLAGS="--sysroot=$initramfs" ../../pkg_sources/$name/configure --with-sysroot=$initramfs --with-build-sysroot=$initramfs --prefix=$initramfs --host x86_64-pc-linux-gnu
+	#compile_package $(ls -1 ../pkg_sources | grep ^gcc-)
 
-	pkg_list=$(ls -1 ../pkg_sources | grep -v ^glibc- | grep -v ^gcc-)
-	echo $pkg_list | while read file; do
-		compile_package($file)
-	done
+	#pkg_list=$(ls -1 ../pkg_sources | grep -v ^glibc- | grep -v ^gcc-)
+	#echo $pkg_list | while read file; do
+	#	compile_package $file
+	#done
 	cd ..
 }
 

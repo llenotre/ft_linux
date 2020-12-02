@@ -20,9 +20,6 @@ $(INITRAMFS): Makefile init
 	mkdir -p $(INITRAMFS_DIR)/{bin,sbin,lib,etc,proc,sys}
 	./compile_packages.sh
 	cp init $(INITRAMFS_DIR)
-	cp pkg_builds/bash-5.1-rc2/bash $(INITRAMFS_DIR)/bin/
-	cp `find pkg_builds/coreutils-8.32/src/ -type f -executable` $(INITRAMFS_DIR)/bin/
-	find pkg_builds/ -type f -name "lib*.so*" | xargs -I {} cp {} $(INITRAMFS_DIR)/lib/
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
 
 tmp: tmp_linux.iso
