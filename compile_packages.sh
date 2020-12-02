@@ -29,23 +29,34 @@ extract_sources() {
 		cd pkg_sources
 		ls -1 ../pkg_tarballs | while read file; do
 			echo "Extracting $file";
-			tar zxvf ../pkg_tarballs/"$file" >/dev/null;
+			tar xvf ../pkg_tarballs/"$file" >/dev/null;
 		done
 		cd ..
 	fi
 }
 
+compile_package(name) {
+	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
+
+	echo "Compiling $name";
+	mkdir $name
+	cd $name
+	../../pkg_sources/$name/configure --with--sysroot=$(initramfs_path) --prefix=$(initramfs_path)
+	make
+	make install
+	cd ..
+}
+
 compile_sources() {
 	mkdir -p pkg_builds
 	cd pkg_builds
-	ls -1 ../pkg_sources | while read file; do
-		echo "Compiling $file";
-		mkdir $file
-		cd $file
-		SYSROOT="../../initramfs/" ../../pkg_sources/$file/configure --with-sysroot="../../initramfs/" --with-install-sysroot="../../initramfs/"
-		make
-		make install
-		cd ..
+
+	compile_package($(ls -1 ../pkg_sources | grep ^glibc-))
+	compile_package($(ls -1 ../pkg_sources | grep ^gcc-))
+
+	pkg_list=$(ls -1 ../pkg_sources | grep -v ^glibc- | grep -v ^gcc-)
+	echo $pkg_list | while read file; do
+		compile_package($file)
 	done
 	cd ..
 }
