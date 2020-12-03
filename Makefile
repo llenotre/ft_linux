@@ -17,7 +17,11 @@ $(KERNEL_BIN): Makefile
 
 $(INITRAMFS): Makefile init
 	rm -rf $(INITRAMFS_DIR)
-	mkdir -p $(INITRAMFS_DIR)/{bin,sbin,lib,etc,proc,sys}
+	mkdir -p $(INITRAMFS_DIR)/{bin,etc,proc,sys,mnt,usr/lib}
+	cd $(INITRAMFS_DIR)
+	ln -rs usr/lib lib
+	ln -rs usr/lib64 lib64
+	cd ..
 	./compile_packages.sh
 	cp init $(INITRAMFS_DIR)
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)

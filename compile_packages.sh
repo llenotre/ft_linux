@@ -37,7 +37,8 @@ extract_sources() {
 
 compile_package() {
 	name=$1
-	stage=$2
+	path=$3
+	extra_flags=$4
 
 	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
 
@@ -45,17 +46,13 @@ compile_package() {
 	mkdir $name
 	cd $name
 
-	if [ $stage = 0 ]; then
-		../../pkg_sources/$name/configure --with--sysroot=$initramfs_path --prefix=$initramfs_path  --host x86_64-pc-linux-gnu
-	else
-		CFLAGS="--sysroot=$initramfs" ../../pkg_sources/$name/configure --with-sysroot=$initramfs --with-build-sysroot=$initramfs --prefix=$initramfs --host x86_64-pc-linux-gnu
-	fi || {
-		echo "Configuration of $initramfs_path failed"
+	../../pkg_sources/$name/configure --with-sysroot=$initramfs_path --host x86_64-pc-linux-gnu --prefix=$initramfs_path/$path $extra_flags || {
+		echo "Configuration of $name failed"
 		exit 1
 	}
 
-	make && make install || {
-		echo "Compilation of $initramfs_path failed"
+	make && make check && make install || {
+		echo "Compilation of $name failed"
 		exit 1
 	}
 
@@ -66,11 +63,11 @@ compile_sources() {
 	mkdir -p pkg_builds
 	cd pkg_builds
 
-	compile_package $(ls -1 ../pkg_sources | grep ^glibc-) 0
-	compile_package $(ls -1 ../pkg_sources | grep ^gmp-) 0
-	compile_package $(ls -1 ../pkg_sources | grep ^mpfr-) 0
-	compile_package $(ls -1 ../pkg_sources | grep ^mpc-) 0
-	compile_package $(ls -1 ../pkg_sources | grep ^gcc-) 1
+	compile_package $(ls -1 ../pkg_sources | grep ^glibc-) /usr
+	compile_package $(ls -1 ../pkg_sources | grep ^gmp-) /usr
+	compile_package $(ls -1 ../pkg_sources | grep ^mpfr-) /usr
+	compile_package $(ls -1 ../pkg_sources | grep ^mpc-) /usr
+	compile_package $(ls -1 ../pkg_sources | grep ^gcc-) /usr --disable-multilib
 
 	#pkg_list=$(ls -1 ../pkg_sources | grep -v ^glibc- | grep -v ^gcc-)
 	#echo $pkg_list | while read file; do
