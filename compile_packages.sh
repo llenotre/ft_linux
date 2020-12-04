@@ -4,7 +4,7 @@ check_smart_boy() {
 	name=$1
 
 	count=$(ls -1 | wc -l)
-	if [ $count > 1 ]; then
+	if [ $count -gt 1 ]; then
 		echo "Congrats $name, you're a freaking moron who doesn't know how to make a proper tarball"
 	else
 		unique_file_name=$(ls -1)
@@ -38,13 +38,12 @@ get_sources() {
 				rm $output;
 				exit 1;
 			}
+		fi
 
-
-
+		if ! stat pkg_sources/$name >/dev/null 2>&1; then
 			echo "Extracting $output";
 
 			cd pkg_sources
-			rm -rf $name
 			mkdir -p $name
 			cd $name
 
@@ -54,7 +53,6 @@ get_sources() {
 			cd ../..
 		fi
 	done
-	cd ..
 }
 
 compile_package() {
@@ -69,7 +67,7 @@ compile_package() {
 	export PKG_HOST="x86_64-pc-linux-gnu"
 
 	script_path=../../scripts/${name}_compile.sh
-	if [ ! stat $script_path >/dev/null 2>&1 ]; then
+	if ! stat $script_path >/dev/null 2>&1; then
 		script_path=../../scripts/__default_compile.sh
 	fi
 
