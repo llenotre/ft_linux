@@ -1,57 +1,79 @@
 #!/bin/bash
 
-get_tarballs() {
+check_smart_boy() {
+	name=$1
+
+	count=$(ls -1 | wc -l)
+	if [ $count > 1 ]; then
+		echo "Congrats $name, you're a freaking moron who doesn't know how to make a proper tarball"
+	else
+		unique_file_name=$(ls -1)
+		cd $unique_file_name 2>/dev/null && {
+			mv * ..;
+			cd ..;
+			rm -rf $unique_file_name;
+		}
+	fi
+}
+
+get_sources() {
 	mkdir -p pkg_tarballs
-	cd pkg_tarballs
-	cat ../source_urls | while read pkg; do
-		checksum=`echo $pkg | cut -d ' ' -f 2`
-		url=`echo $pkg | cut -d ' ' -f 1`
-		output=${url##*/}
+	mkdir -p pkg_sources
+
+	cat source_urls | while read pkg; do
+		name=`echo $pkg | cut -d ' ' -f 1`
+		url=`echo $pkg | cut -d ' ' -f 2`
+		checksum=`echo $pkg | cut -d ' ' -f 3`
+
+		output=pkg_tarballs/${name}.compressed
+
 		if ! stat $output >/dev/null 2>&1; then
-			echo "Downloading $output (url: $url checksum: $checksum)"
+			echo "Downloading $name (url: $url checksum: $checksum)"
 			wget -O "$output" "$url"
 
 			echo $checksum >/tmp/ft_linux_checksum0
 			md5sum "$output" | cut -d ' ' -f 1 >/tmp/ft_linux_checksum1
 			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1 || {
-				echo "Checksum doesn't correspond!";
+				echo "Checksum for $name doesn't match";
 				rm $output;
-				exit;
+				exit 1;
 			}
+
+
+
+			echo "Extracting $output";
+
+			cd pkg_sources
+			rm -rf $name
+			mkdir -p $name
+			cd $name
+
+			tar xvf ../../"$output" >/dev/null;
+			check_smart_boy $name
+
+			cd ../..
 		fi
 	done
 	cd ..
 }
 
-extract_sources() {
-	if ! stat pkg_sources >/dev/null 2>&1; then
-		mkdir -p pkg_sources
-		cd pkg_sources
-		ls -1 ../pkg_tarballs | while read file; do
-			echo "Extracting $file";
-			tar xvf ../pkg_tarballs/"$file" >/dev/null;
-		done
-		cd ..
-	fi
-}
-
 compile_package() {
 	name=$1
-	path=$3
-	extra_flags=$4
-
-	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
 
 	echo "Compiling $name";
-	mkdir $name
+	mkdir -p $name
 	cd $name
 
-	../../pkg_sources/$name/configure --with-sysroot=$initramfs_path --host x86_64-pc-linux-gnu --prefix=$initramfs_path/$path $extra_flags || {
-		echo "Configuration of $name failed"
-		exit 1
-	}
+	export PKG_SRC="../../pkg_sources/$name/"
+	export PKG_BUILD="x86_64-pc-linux-gnu"
+	export PKG_HOST="x86_64-pc-linux-gnu"
 
-	make && make check && make install || {
+	script_path=../../scripts/${name}_compile.sh
+	if [ ! stat $script_path >/dev/null 2>&1 ]; then
+		script_path=../../scripts/__default_compile.sh
+	fi
+
+	$script_path || {
 		echo "Compilation of $name failed"
 		exit 1
 	}
@@ -63,19 +85,22 @@ compile_sources() {
 	mkdir -p pkg_builds
 	cd pkg_builds
 
-	compile_package $(ls -1 ../pkg_sources | grep ^glibc-) /usr
-	compile_package $(ls -1 ../pkg_sources | grep ^gmp-) /usr
-	compile_package $(ls -1 ../pkg_sources | grep ^mpfr-) /usr
-	compile_package $(ls -1 ../pkg_sources | grep ^mpc-) /usr
-	compile_package $(ls -1 ../pkg_sources | grep ^gcc-) /usr --disable-multilib
+	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
 
-	#pkg_list=$(ls -1 ../pkg_sources | grep -v ^glibc- | grep -v ^gcc-)
-	#echo $pkg_list | while read file; do
-	#	compile_package $file
-	#done
+	export CFLAGS="--sysroot=$initramfs_path"
+	export CXXFLAGS="--sysroot=$initramfs_path"
+	export LDFLAGS="--sysroot=$initramfs_path"
+	export MAKEFLAGS='-j8'
+
+	IFS=""
+	pkg_list=$(ls -1 ../pkg_sources)
+	echo $pkg_list | while read file; do
+		compile_package $file
+	done
+	unset IFS
+
 	cd ..
 }
 
-get_tarballs
-extract_sources
+get_sources
 compile_sources

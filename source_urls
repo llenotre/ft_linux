@@ -1,79 +1,79 @@
-http://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz 007aabf1dbb550bcddde52a244cd1070
-http://download.savannah.gnu.org/releases/attr/attr-2.4.48.tar.gz bc1e5cb5c96d99b24886f1f527d3bb3d
-http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz 50f97f4159805e374639a73e2636f22e
-http://ftp.gnu.org/gnu/automake/automake-1.16.2.tar.xz 6cb234c86f3f984df29ce758e6d0d1d7
-http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz 2b44b47b905be16f45709648f671820b
-https://github.com/gavinhoward/bc/releases/download/3.1.6/bc-3.1.6.tar.xz bd5e3922d95098ef3dcbddf3f93321fb
-http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.xz 7126f370ffbd46c08fcc5ce7aee2805d
-http://ftp.gnu.org/gnu/bison/bison-3.7.4.tar.xz bcd5f37396b061f2f00e5b1db58172ed
-https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz 67e051268d0c475ea773822f7500d0e5
-https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz 50fcafcecde5a380415b12e9c574e0b2
-http://ftp.gnu.org/gnu/coreutils/coreutils-8.32.tar.xz 022042695b7d5bcf1a93559a9735e668
-http://ftp.gnu.org/gnu/dejagnu/dejagnu-1.6.2.tar.gz e1b07516533f351b3aba3423fafeffd6
-http://ftp.gnu.org/gnu/diffutils/diffutils-3.7.tar.xz 4824adc0e95dbbf11dfbdfaad6a1e461
-https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.45.6/e2fsprogs-1.45.6.tar.gz cccfb706d162514e4f9dbfbc9e5d65ee
-https://sourceware.org/ftp/elfutils/0.182/elfutils-0.182.tar.bz2 ebd95e1858280095fd60d0f765d50fef
-https://dev.gentoo.org/~blueness/eudev/eudev-3.2.9.tar.gz dedfb1964f6098fe9320de827957331f
-https://prdownloads.sourceforge.net/expat/expat-2.2.10.tar.xz e0fe49a6b3480827c9455e4cfc799133
-https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz 00fce8de158422f5ccd2666512329bd2
-ftp://ftp.astron.com/pub/file/file-5.39.tar.gz 1c450306053622803a25647d88f80f25
-http://ftp.gnu.org/gnu/findutils/findutils-4.7.0.tar.xz 731356dec4b1109b812fecfddfead6b2
-https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz 2882e3179748cc9f9c23ec593d6adc8d
-http://ftp.gnu.org/gnu/gawk/gawk-5.1.0.tar.xz 8470c34eeecc41c1aa0c5d89e630df50
-http://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz e9fd9b1789155ad09bcf3ae747596b50
-http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz 988dc82182121c7570e0cb8b4fcd5415
-http://ftp.gnu.org/gnu/gettext/gettext-0.21.tar.xz 40996bbaf7d1356d3c22e33a8b255b31
-http://ftp.gnu.org/gnu/glibc/glibc-2.32.tar.xz 720c7992861c57cf97d66a2f36d8d1fa
-http://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.xz 0b82665c4a92fd2ade7440c13fcaa42b
-http://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz 9e251c0a618ad0824b51117d5d9db87e
-http://ftp.gnu.org/gnu/grep/grep-3.6.tar.xz f47fe27049510b2249dba7f862ac1b51
-http://ftp.gnu.org/gnu/groff/groff-1.22.4.tar.gz 08fb04335e2f5e73f23ea4c3adbf0c5f
-https://ftp.gnu.org/gnu/grub/grub-2.04.tar.xz 5aaca6713b47ca2456d8324a58755ac7
-http://ftp.gnu.org/gnu/gzip/gzip-1.10.tar.xz 691b1221694c3394f1c537df4eee39d3
-https://github.com/Mic92/iana-etc/releases/download/20201110/iana-etc-20201110.tar.gz 8c06f1320cf43b3868963707838dca51
-http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz 87fef1fa3f603aef11c41dcc097af75e
-https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz 12e517cac2b57a0121cda351570f1e63
-https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.9.0.tar.xz 3966f12374e1beb70f1c21f30a350673
-https://www.kernel.org/pub/linux/utils/kbd/kbd-2.3.0.tar.xz ac7ec9cedad48f4c279251cddc72008a
-https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-27.tar.xz 3973a74786670d3062d89a827e266581
-http://www.greenwoodsoftware.com/less/less-563.tar.gz 1ee44fa71447a845f6eef5b3f38d2781
-http://www.linuxfromscratch.org/lfs/downloads/development/lfs-bootscripts-20201019.tar.xz cc0a0099ff4540c0a4c9da29cd68f071
-https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.45.tar.xz e4d4c04ad28a3b601e374c0367113236
-ftp://sourceware.org/pub/libffi/libffi-3.3.tar.gz 6313289e32f1d38a9df4770b014a2ca7
-http://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.3.tar.gz dad443d0911cf9f0f1bd90a334bc9004
-http://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz 1bfb9b923f2c1339b4d2ce1807064aa5
-http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz 730bb15d96fffe47e148d1e09235af82
-http://ftp.gnu.org/gnu/make/make-4.3.tar.gz fc7a67ea86ace13195b0bce683fd4469
-http://download.savannah.gnu.org/releases/man-db/man-db-2.9.3.tar.xz 4c8721faa54a4c950c640e5e5c713fb0
-https://www.kernel.org/pub/linux/docs/man-pages/man-pages-5.09.tar.xz 3821e8d05f6f253e136ca2a4ff0aafbf
-https://github.com/mesonbuild/meson/releases/download/0.56.0/meson-0.56.0.tar.gz 67ce2c0c3eab1b8ee9ddaa1c5143e7c0
-https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz 9f16c976c25bb0f76b50be749cd7a3a8
-http://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.xz bdd3d5efba9c17da8d83a35ec552baef
-http://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz e812da327b1c2214ac1aed440ea3ae8d
-https://github.com/ninja-build/ninja/archive/v1.10.1/ninja-1.10.1.tar.gz 05c1bb5ef41c85057fa6abdffa243dcd
-https://www.openssl.org/source/openssl-1.1.1h.tar.gz 53840c70434793127a3574433494e8d3
-http://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz 78ad9937e4caadcba1526ef1853730d5
-https://www.cpan.org/src/5.0/perl-5.32.0.tar.xz 3812cd9a096a72cb27767c7e2e40441c
-https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz f6e931e319531b736fadc017f470e68a
-https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-3.3.16.tar.xz e8dc8455e573bdc40b8381d572bbb89b
-https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.3.tar.xz 573bf80e6b0de86e7f307e310098cf86
-https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tar.xz 6ebfe157f6e88d9eabfbaf3fa92129f6
-https://www.python.org/ftp/python/doc/3.9.0/python-3.9.0-docs-html.tar.bz2 9d2425d666883b98add3a6c809809147
-http://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz 7e6c1f16aee3244a69aba6e438295ca3
-http://ftp.gnu.org/gnu/sed/sed-4.8.tar.xz 6d906edfdb3202304059233f51f9a71d
-https://github.com/shadow-maint/shadow/releases/download/4.8.1/shadow-4.8.1.tar.xz 4b05eff8a427cf50e615bda324b5bc45
-http://www.infodrom.org/projects/sysklogd/download/sysklogd-1.5.1.tar.gz c70599ab0d037fde724f7210c2c8d7f8
-http://download.savannah.gnu.org/releases/sysvinit/sysvinit-2.97.tar.xz e11bc4b3eac6e6ddee7f8306230749a9
-http://ftp.gnu.org/gnu/tar/tar-1.32.tar.xz 83e38700a80a26e30b2df054e69956e5
-https://downloads.sourceforge.net/tcl/tcl8.6.10-src.tar.gz 97c55573f8520bcab74e21bfd8d0aadc
-https://downloads.sourceforge.net/tcl/tcl8.6.10-html.tar.gz a012711241ba3a5bd4a04e833001d489
-http://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz d4c5d8cc84438c5993ec5163a59522a6
-https://www.iana.org/time-zones/repository/releases/tzdata2020d.tar.gz 2f58d72e31cf073f5076c2cbf182cba3
-http://anduin.linuxfromscratch.org/LFS/udev-lfs-20171102.tar.xz 27cd82f9a61422e186b9d6759ddf1634
-https://www.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz fe7c0f7e439f08970e462c9d44599903
-http://anduin.linuxfromscratch.org/LFS/vim-8.2.1845.tar.gz 085cf5e6204c3e9348d9e56b422adfba
-https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz 80bb18a8e6240fcf7ec2f7b57601c170
-https://tukaani.org/xz/xz-5.2.5.tar.xz aa1621ec7013a19abab52a8aff04fe5b
-https://zlib.net/zlib-1.2.11.tar.xz 85adef240c5f370b308da8c938951a68
-https://github.com/facebook/zstd/releases/download/v1.4.5/zstd-1.4.5.tar.gz dd0b53631303b8f972dafa6fd34beb0c
-https://github.com/systemd/systemd/archive/v247.tar.gz b0d6e603b814908acc69db29bbfb023c
+acl http://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz 007aabf1dbb550bcddde52a244cd1070
+attr http://download.savannah.gnu.org/releases/attr/attr-2.4.48.tar.gz bc1e5cb5c96d99b24886f1f527d3bb3d
+autoconf http://ftp.gnu.org/gnu/autoconf/autoconf-2.69.tar.xz 50f97f4159805e374639a73e2636f22e
+automake http://ftp.gnu.org/gnu/automake/automake-1.16.2.tar.xz 6cb234c86f3f984df29ce758e6d0d1d7
+bash http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz 2b44b47b905be16f45709648f671820b
+bc https://github.com/gavinhoward/bc/releases/download/3.1.6/bc-3.1.6.tar.xz bd5e3922d95098ef3dcbddf3f93321fb
+binutils http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.xz 7126f370ffbd46c08fcc5ce7aee2805d
+bison http://ftp.gnu.org/gnu/bison/bison-3.7.4.tar.xz bcd5f37396b061f2f00e5b1db58172ed
+bzip https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz 67e051268d0c475ea773822f7500d0e5
+libcheck https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz 50fcafcecde5a380415b12e9c574e0b2
+coreutils http://ftp.gnu.org/gnu/coreutils/coreutils-8.32.tar.xz 022042695b7d5bcf1a93559a9735e668
+dejagnu http://ftp.gnu.org/gnu/dejagnu/dejagnu-1.6.2.tar.gz e1b07516533f351b3aba3423fafeffd6
+diffutils http://ftp.gnu.org/gnu/diffutils/diffutils-3.7.tar.xz 4824adc0e95dbbf11dfbdfaad6a1e461
+e2fsprogs https://downloads.sourceforge.net/project/e2fsprogs/e2fsprogs/v1.45.6/e2fsprogs-1.45.6.tar.gz cccfb706d162514e4f9dbfbc9e5d65ee
+elfutils https://sourceware.org/ftp/elfutils/0.182/elfutils-0.182.tar.bz2 ebd95e1858280095fd60d0f765d50fef
+eudev https://dev.gentoo.org/~blueness/eudev/eudev-3.2.9.tar.gz dedfb1964f6098fe9320de827957331f
+expat https://prdownloads.sourceforge.net/expat/expat-2.2.10.tar.xz e0fe49a6b3480827c9455e4cfc799133
+expect https://prdownloads.sourceforge.net/expect/expect5.45.4.tar.gz 00fce8de158422f5ccd2666512329bd2
+file ftp://ftp.astron.com/pub/file/file-5.39.tar.gz 1c450306053622803a25647d88f80f25
+findutils http://ftp.gnu.org/gnu/findutils/findutils-4.7.0.tar.xz 731356dec4b1109b812fecfddfead6b2
+flex https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz 2882e3179748cc9f9c23ec593d6adc8d
+gawk http://ftp.gnu.org/gnu/gawk/gawk-5.1.0.tar.xz 8470c34eeecc41c1aa0c5d89e630df50
+gcc http://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz e9fd9b1789155ad09bcf3ae747596b50
+gdbm http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz 988dc82182121c7570e0cb8b4fcd5415
+gettext http://ftp.gnu.org/gnu/gettext/gettext-0.21.tar.xz 40996bbaf7d1356d3c22e33a8b255b31
+glibc http://ftp.gnu.org/gnu/glibc/glibc-2.32.tar.xz 720c7992861c57cf97d66a2f36d8d1fa
+gmp http://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.xz 0b82665c4a92fd2ade7440c13fcaa42b
+gperf http://ftp.gnu.org/gnu/gperf/gperf-3.1.tar.gz 9e251c0a618ad0824b51117d5d9db87e
+grep http://ftp.gnu.org/gnu/grep/grep-3.6.tar.xz f47fe27049510b2249dba7f862ac1b51
+groff http://ftp.gnu.org/gnu/groff/groff-1.22.4.tar.gz 08fb04335e2f5e73f23ea4c3adbf0c5f
+grub https://ftp.gnu.org/gnu/grub/grub-2.04.tar.xz 5aaca6713b47ca2456d8324a58755ac7
+gzip http://ftp.gnu.org/gnu/gzip/gzip-1.10.tar.xz 691b1221694c3394f1c537df4eee39d3
+iana-etc https://github.com/Mic92/iana-etc/releases/download/20201110/iana-etc-20201110.tar.gz 8c06f1320cf43b3868963707838dca51
+inetutils http://ftp.gnu.org/gnu/inetutils/inetutils-1.9.4.tar.xz 87fef1fa3f603aef11c41dcc097af75e
+intltool https://launchpad.net/intltool/trunk/0.51.0/+download/intltool-0.51.0.tar.gz 12e517cac2b57a0121cda351570f1e63
+iproute2 https://www.kernel.org/pub/linux/utils/net/iproute2/iproute2-5.9.0.tar.xz 3966f12374e1beb70f1c21f30a350673
+kbd https://www.kernel.org/pub/linux/utils/kbd/kbd-2.3.0.tar.xz ac7ec9cedad48f4c279251cddc72008a
+kmod https://www.kernel.org/pub/linux/utils/kernel/kmod/kmod-27.tar.xz 3973a74786670d3062d89a827e266581
+less http://www.greenwoodsoftware.com/less/less-563.tar.gz 1ee44fa71447a845f6eef5b3f38d2781
+lfs-bootscripts http://www.linuxfromscratch.org/lfs/downloads/development/lfs-bootscripts-20201019.tar.xz cc0a0099ff4540c0a4c9da29cd68f071
+libcap https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap-2.45.tar.xz e4d4c04ad28a3b601e374c0367113236
+libffi ftp://sourceware.org/pub/libffi/libffi-3.3.tar.gz 6313289e32f1d38a9df4770b014a2ca7
+libpipeline http://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.3.tar.gz dad443d0911cf9f0f1bd90a334bc9004
+libtool http://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz 1bfb9b923f2c1339b4d2ce1807064aa5
+m4 http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz 730bb15d96fffe47e148d1e09235af82
+mkae http://ftp.gnu.org/gnu/make/make-4.3.tar.gz fc7a67ea86ace13195b0bce683fd4469
+man-db http://download.savannah.gnu.org/releases/man-db/man-db-2.9.3.tar.xz 4c8721faa54a4c950c640e5e5c713fb0
+man-pages https://www.kernel.org/pub/linux/docs/man-pages/man-pages-5.09.tar.xz 3821e8d05f6f253e136ca2a4ff0aafbf
+meson https://github.com/mesonbuild/meson/releases/download/0.56.0/meson-0.56.0.tar.gz 67ce2c0c3eab1b8ee9ddaa1c5143e7c0
+mpc https://ftp.gnu.org/gnu/mpc/mpc-1.2.1.tar.gz 9f16c976c25bb0f76b50be749cd7a3a8
+mpfr http://www.mpfr.org/mpfr-4.1.0/mpfr-4.1.0.tar.xz bdd3d5efba9c17da8d83a35ec552baef
+ncurses http://ftp.gnu.org/gnu/ncurses/ncurses-6.2.tar.gz e812da327b1c2214ac1aed440ea3ae8d
+ninja-build https://github.com/ninja-build/ninja/archive/v1.10.1/ninja-1.10.1.tar.gz 05c1bb5ef41c85057fa6abdffa243dcd
+openssl https://www.openssl.org/source/openssl-1.1.1h.tar.gz 53840c70434793127a3574433494e8d3
+patch http://ftp.gnu.org/gnu/patch/patch-2.7.6.tar.xz 78ad9937e4caadcba1526ef1853730d5
+perl https://www.cpan.org/src/5.0/perl-5.32.0.tar.xz 3812cd9a096a72cb27767c7e2e40441c
+pkg-config https://pkg-config.freedesktop.org/releases/pkg-config-0.29.2.tar.gz f6e931e319531b736fadc017f470e68a
+procps-ng https://sourceforge.net/projects/procps-ng/files/Production/procps-ng-3.3.16.tar.xz e8dc8455e573bdc40b8381d572bbb89b
+psmisc https://sourceforge.net/projects/psmisc/files/psmisc/psmisc-23.3.tar.xz 573bf80e6b0de86e7f307e310098cf86
+python https://www.python.org/ftp/python/3.9.0/Python-3.9.0.tar.xz 6ebfe157f6e88d9eabfbaf3fa92129f6
+python-docs https://www.python.org/ftp/python/doc/3.9.0/python-3.9.0-docs-html.tar.bz2 9d2425d666883b98add3a6c809809147
+readline http://ftp.gnu.org/gnu/readline/readline-8.0.tar.gz 7e6c1f16aee3244a69aba6e438295ca3
+sed http://ftp.gnu.org/gnu/sed/sed-4.8.tar.xz 6d906edfdb3202304059233f51f9a71d
+shadow https://github.com/shadow-maint/shadow/releases/download/4.8.1/shadow-4.8.1.tar.xz 4b05eff8a427cf50e615bda324b5bc45
+sysklogd http://www.infodrom.org/projects/sysklogd/download/sysklogd-1.5.1.tar.gz c70599ab0d037fde724f7210c2c8d7f8
+sysvinit http://download.savannah.gnu.org/releases/sysvinit/sysvinit-2.97.tar.xz e11bc4b3eac6e6ddee7f8306230749a9
+tar http://ftp.gnu.org/gnu/tar/tar-1.32.tar.xz 83e38700a80a26e30b2df054e69956e5
+tcl https://downloads.sourceforge.net/tcl/tcl8.6.10-src.tar.gz 97c55573f8520bcab74e21bfd8d0aadc
+tcl-html https://downloads.sourceforge.net/tcl/tcl8.6.10-html.tar.gz a012711241ba3a5bd4a04e833001d489
+texinfo http://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz d4c5d8cc84438c5993ec5163a59522a6
+tzdata https://www.iana.org/time-zones/repository/releases/tzdata2020d.tar.gz 2f58d72e31cf073f5076c2cbf182cba3
+udev-lfs http://anduin.linuxfromscratch.org/LFS/udev-lfs-20171102.tar.xz 27cd82f9a61422e186b9d6759ddf1634
+util-linux https://www.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz fe7c0f7e439f08970e462c9d44599903
+vim http://anduin.linuxfromscratch.org/LFS/vim-8.2.1845.tar.gz 085cf5e6204c3e9348d9e56b422adfba
+xml-parser https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz 80bb18a8e6240fcf7ec2f7b57601c170
+xz https://tukaani.org/xz/xz-5.2.5.tar.xz aa1621ec7013a19abab52a8aff04fe5b
+zlib https://zlib.net/zlib-1.2.11.tar.xz 85adef240c5f370b308da8c938951a68
+zstd https://github.com/facebook/zstd/releases/download/v1.4.5/zstd-1.4.5.tar.gz dd0b53631303b8f972dafa6fd34beb0c
+systemd https://github.com/systemd/systemd/archive/v247.tar.gz b0d6e603b814908acc69db29bbfb023c
