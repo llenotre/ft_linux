@@ -1,78 +1,78 @@
-acl glibc
-attr
-autoconf
-automake
-bash
-bc
-binutils
-bison
-bzip
-libcheck
-coreutils
-dejagnu
-diffutils
-e2fsprogs
-elfutils
+acl attr
+attr glibc
+autoconf diffutils m4 perl
+automake bash perl
+bash glibc libreadline ncurses readline
+bc readline
+binutils elfutils glibc zlib
+bison glibc m4
+bzip glibc
+libcheck gawk
+coreutils acl attr glibc gmp libcap openssl
+dejagnu expect bash
+diffutils bash glibc
+e2fsprogs bash util-linux-libs
+elfutils bzip gcc xz zlib
 eudev
-expat
-expect
-file
-findutils
-flex
-gawk
-gcc
-gdbm
-gettext
-glibc
+expat glibc
+expect tcl
+file bzip2 glibc xz zlib
+findutils glibc bash
+flex glibc m4 bash
+gawk glibc mpfr bash
+gcc binutils mpc
+gdbm glibc bash
+gettext acl gcc bash
+glibc tzdata
 gmp
-gperf
-grep
-groff
-grub
-gzip
+gperf texinfo
+grep glibc
+groff perl
+grub gettext bash xz
+gzip bash glibc less
 iana-etc
-inetutils
-intltool
-iproute2
-kbd
-kmod
-less
-libcap
-libffi
-libpipeline
-libtool
-m4
-make
-man-db
+inetutils libcap
+intltool xml-parser
+iproute2 glibc
+kbd glibc
+kmod glibc openssl xz zlib
+less glibc ncurses pcre
+libcap glibc
+libffi glibc
+libpipeline glibc
+libtool glibc bash tar
+m4 bash glibc
+make glibc
+man-db bash gdbm groff less libpipeline zlib
 man-pages
-meson
-mpc
-mpfr
-ncurses
+meson ninja-build
+mpc glibc
+mpfr gmp
+ncurses glibc
 ninja-build
-openssl
-patch
-perl
-pkg-config
-procps-ng
-psmisc
-python
+openssl perl
+patch attr glibc
+perl gdbm glibc
+pkg-config glibc bash
+procps-ng ncurses
+psmisc ncurses
+python bzip expat gdbm libffi openssl zlib
 python-docs
-readline
-sed
-shadow
+readline glibc ncurses
+sed acl attr glibc
+shadow acl libcap
 sysklogd
 sysvinit
-tar
-tcl
+tar acl attr glibc
+tcl zlib
 tcl-html
-texinfo
+texinfo gzip ncurses perl bash
 tzdata
 udev-lfs
-util-linux
-vim
-xml-parser
-xz
-zlib
-zstd
-systemd
+util-linux coreutils libcap file ncurses readline shadow
+vim acl glibc gpm libffi zlib
+xml-parser expat
+xz bash
+zlib glibc
+zstd xz zlib
+systemd acl bash kbd kmod libcap openssl util-linux xz
