@@ -58,28 +58,52 @@ get_sources() {
 compile_package() {
 	name=$1
 
-	echo "Compiling $name";
-	mkdir -p $name
-	cd $name
+	if ! grep ^${name}$ -- ../compiled; then
+		echo "Compiling $name";
+		mkdir -p $name
 
-	export PKG_SRC="../../pkg_sources/$name/"
-	export PKG_BUILD="x86_64-pc-linux-gnu"
-	export PKG_HOST="x86_64-pc-linux-gnu"
+		IFS="\n"
+		grep "^$name " -- ../deps | tr ' ' "\n" | while read dep; do
+			if [ "$dep" != "$name" ]; then
+				echo "\"$name\" requires \"$dep\""
+				compile_package $dep
+			fi
+		done
+		IFS=""
 
-	script_path=../../scripts/${name}_compile.sh
-	if ! stat $script_path >/dev/null 2>&1; then
-		script_path=../../scripts/__default_compile.sh
+		cd $name
+
+		export PKG_SRC="../../pkg_sources/$name/"
+		export PKG_BUILD="x86_64-pc-linux-gnu"
+		export PKG_HOST="x86_64-pc-linux-gnu"
+
+		compile_script_path=../../scripts/${name}_compile.sh
+		if ! stat $compile_script_path >/dev/null 2>&1; then
+			compile_script_path=../../scripts/__default_compile.sh
+		fi
+
+		$compile_script_path || {
+			echo "Compilation of $name failed"
+			exit 1
+		}
+
+		install_script_path=../../scripts/${name}_compile.sh
+		if ! stat $install_script_path >/dev/null 2>&1; then
+			install_script_path=../../scripts/__default_install.sh
+		fi
+
+		$install_script_path || {
+			echo "Installation of $name failed"
+			exit 1
+		}
+
+		cd ..
+		echo $file >>../compiled
 	fi
-
-	$script_path || {
-		echo "Compilation of $name failed"
-		exit 1
-	}
-
-	cd ..
 }
 
 compile_sources() {
+	touch compiled
 	mkdir -p pkg_builds
 	cd pkg_builds
 
@@ -88,6 +112,7 @@ compile_sources() {
 	export CFLAGS="--sysroot=$initramfs_path"
 	export CXXFLAGS="--sysroot=$initramfs_path"
 	export LDFLAGS="--sysroot=$initramfs_path"
+	export SYSROOT="$initramfs_path"
 	export MAKEFLAGS='-j8'
 
 	IFS=""

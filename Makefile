@@ -19,6 +19,7 @@ $(INITRAMFS): Makefile init
 	rm -rf $(INITRAMFS_DIR)
 	mkdir -p $(INITRAMFS_DIR)/{bin,etc,proc,sys,mnt,usr/lib}
 	cd $(INITRAMFS_DIR) && ln -rs usr/lib lib && ln -rs usr/lib64 lib64
+	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
 	./compile_packages.sh
 	cp init $(INITRAMFS_DIR)
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
