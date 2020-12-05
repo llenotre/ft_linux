@@ -66,7 +66,7 @@ compile_package() {
 		grep "^$name " -- ../deps | tr ' ' "\n" | while read dep; do
 			if [ "$dep" != "$name" ]; then
 				echo "\"$name\" requires \"$dep\""
-				compile_package $dep
+				compile_package $dep || exit 1
 			fi
 		done
 		IFS=""
@@ -87,7 +87,7 @@ compile_package() {
 			exit 1
 		}
 
-		install_script_path=../../scripts/${name}_compile.sh
+		install_script_path=../../scripts/${name}_install.sh
 		if ! stat $install_script_path >/dev/null 2>&1; then
 			install_script_path=../../scripts/__default_install.sh
 		fi
@@ -98,7 +98,7 @@ compile_package() {
 		}
 
 		cd ..
-		echo $file >>../compiled
+		echo $name >>../compiled
 	fi
 }
 
@@ -109,16 +109,16 @@ compile_sources() {
 
 	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
 
-	export CFLAGS="--sysroot=$initramfs_path"
-	export CXXFLAGS="--sysroot=$initramfs_path"
-	export LDFLAGS="--sysroot=$initramfs_path"
+	#export CFLAGS="--sysroot=$initramfs_path"
+	#export CXXFLAGS="--sysroot=$initramfs_path"
+	#export LDFLAGS="--sysroot=$initramfs_path"
 	export SYSROOT="$initramfs_path"
 	export MAKEFLAGS='-j8'
 
 	IFS=""
 	pkg_list=$(ls -1 ../pkg_sources)
 	echo $pkg_list | while read file; do
-		compile_package $file
+		compile_package $file || exit 1
 	done
 	unset IFS
 
