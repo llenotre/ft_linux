@@ -75,12 +75,15 @@ compile_package() {
 		export PKG_BUILD="x86_64-pc-linux-gnu"
 		export PKG_HOST="x86_64-pc-linux-gnu"
 
+		compile_logs_path=../../logs/$1_compile.log
+		install_logs_path=../../logs/$1_install.log
+
 		compile_script_path=../../scripts/${1}_compile.sh
 		if ! stat $compile_script_path >/dev/null 2>&1; then
 			compile_script_path=../../scripts/__default_compile.sh
 		fi
 
-		$compile_script_path || {
+		$compile_script_path >$compile_logs_path 2>&1 || {
 			echo "Compilation of $1 failed"
 			exit 1
 		}
@@ -90,7 +93,7 @@ compile_package() {
 			install_script_path=../../scripts/__default_install.sh
 		fi
 
-		$install_script_path || {
+		$install_script_path >$install_logs_path 2>&1 || {
 			echo "Installation of $1 failed"
 			exit 1
 		}
@@ -102,6 +105,7 @@ compile_package() {
 
 compile_sources() {
 	touch compiled
+	mkdir -p logs
 	mkdir -p pkg_builds
 	cd pkg_builds
 
