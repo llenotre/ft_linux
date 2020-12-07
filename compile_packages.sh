@@ -80,20 +80,20 @@ compile_package() {
 			compile_script_path=../../scripts/__default_compile.sh
 		fi
 
-		#$compile_script_path || {
-		#	echo "Compilation of $1 failed"
-		#	exit 1
-		#}
+		$compile_script_path || {
+			echo "Compilation of $1 failed"
+			exit 1
+		}
 
 		install_script_path=../../scripts/${1}_install.sh
 		if ! stat $install_script_path >/dev/null 2>&1; then
 			install_script_path=../../scripts/__default_install.sh
 		fi
 
-		#$install_script_path || {
-		#	echo "Installation of $1 failed"
-		#	exit 1
-		#}
+		$install_script_path || {
+			echo "Installation of $1 failed"
+			exit 1
+		}
 
 		cd ..
 		echo $1 >>../compiled
