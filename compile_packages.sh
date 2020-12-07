@@ -1,10 +1,11 @@
 #!/bin/bash
 
-trap "exit 1" TERM
+#trap "exit 1" TERM
 export SCRIPT_PID=$$
 
 abort() {
-	kill -s TERM $SCRIPT_PID
+	kill -s TERM -$SCRIPT_PID
+	sleep 10
 }
 
 check_smart_boy() {
