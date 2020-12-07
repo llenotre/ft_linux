@@ -11,4 +11,5 @@ initramfs/
 initramfs.img
 
 compiled
+installed
 logs/

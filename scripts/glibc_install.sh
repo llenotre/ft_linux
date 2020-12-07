@@ -27,7 +27,7 @@ rpc: files
 # End /etc/nsswitch.conf
 EOF
 
-cat > /etc/ld.so.conf << "EOF"
+cat > $SYSROOT/etc/ld.so.conf << "EOF"
 # Begin /etc/ld.so.conf
 /usr/local/lib
 /opt/lib

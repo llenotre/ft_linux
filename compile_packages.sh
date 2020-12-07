@@ -1,5 +1,12 @@
 #!/bin/bash
 
+trap "exit 1" TERM
+export SCRIPT_PID=$$
+
+abort() {
+	kill -s TERM $SCRIPT_PID
+}
+
 check_smart_boy() {
 	name=$1
 
@@ -36,7 +43,7 @@ get_sources() {
 			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1 || {
 				echo "Checksum for $name doesn't match";
 				rm $output;
-				exit 1;
+				abort
 			}
 		fi
 
@@ -55,15 +62,22 @@ get_sources() {
 	done
 }
 
-compile_package() {
-	if [ ! -z "$1" ] && ! grep "^${1}$" -- ../compiled >/dev/null 2>&1; then
-		echo "Compiling $1";
+print_tabs() {
+	i=0
+	while [ "$i" -lt "$1" ]; do
+		echo -n '	'
+		i=$(($i + 1))
+	done
+}
 
+compile_package() {
+	if [ ! -z "$1" ]; then
 		IFS="\n"
 		grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
 			if [ "$dep" != "$1" ]; then
+				print_tabs $2
 				echo "$1 requires $dep"
-				compile_package $dep || exit 1
+				compile_package $dep $(($2 + 1)) || abort
 			fi
 		done
 		IFS=""
@@ -78,33 +92,45 @@ compile_package() {
 		compile_logs_path=../../logs/$1_compile.log
 		install_logs_path=../../logs/$1_install.log
 
-		compile_script_path=../../scripts/${1}_compile.sh
-		if ! stat $compile_script_path >/dev/null 2>&1; then
-			compile_script_path=../../scripts/__default_compile.sh
+		if ! grep "^${1}$" -- ../../compiled >/dev/null 2>&1; then
+			print_tabs $2
+			echo "Compiling $1";
+			compile_script_path=../../scripts/${1}_compile.sh
+			if ! stat $compile_script_path >/dev/null 2>&1; then
+				compile_script_path=../../scripts/__default_compile.sh
+			fi
+			$compile_script_path >$compile_logs_path 2>&1 || {
+				print_tabs $2
+				echo "Compilation of $1 failed"
+				abort
+			}
+
+			echo $1 >>../../compiled
 		fi
 
-		$compile_script_path >$compile_logs_path 2>&1 || {
-			echo "Compilation of $1 failed"
-			exit 1
-		}
+		if ! grep "^${1}$" -- ../../installed >/dev/null 2>&1; then
+			print_tabs $2
+			echo "Installing $1";
+			install_script_path=../../scripts/${1}_install.sh
+			if ! stat $install_script_path >/dev/null 2>&1; then
+				install_script_path=../../scripts/__default_install.sh
+			fi
+			$install_script_path >$install_logs_path 2>&1 || {
+				print_tabs $2
+				echo "Installation of $1 failed"
+				abort
+			}
 
-		install_script_path=../../scripts/${1}_install.sh
-		if ! stat $install_script_path >/dev/null 2>&1; then
-			install_script_path=../../scripts/__default_install.sh
+			echo $1 >>../../installed
 		fi
-
-		$install_script_path >$install_logs_path 2>&1 || {
-			echo "Installation of $1 failed"
-			exit 1
-		}
 
 		cd ..
-		echo $1 >>../compiled
 	fi
 }
 
 compile_sources() {
 	touch compiled
+	touch installed
 	mkdir -p logs
 	mkdir -p pkg_builds
 	cd pkg_builds
@@ -120,7 +146,14 @@ compile_sources() {
 	IFS=""
 	pkg_list=$(ls -1 ../pkg_sources)
 	echo $pkg_list | while read file; do
-		compile_package $file || exit 1;
+		echo "------------------------------------------"
+		echo "   Preparing package $file..."
+		echo "------------------------------------------"
+		echo
+		compile_package $file 0 || abort
+		echo
+		echo
+		echo
 	done
 	unset IFS
 

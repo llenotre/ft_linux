@@ -16,7 +16,7 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC)
 
 $(INITRAMFS): Makefile init
-	rm -rf $(INITRAMFS_DIR)
+	rm -rf $(INITRAMFS_DIR) installed
 	mkdir -p $(INITRAMFS_DIR)/{bin,etc,proc,sys,mnt,usr/lib}
 	cd $(INITRAMFS_DIR) && ln -rs usr/lib lib && ln -rs usr/lib64 lib64
 	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
