@@ -2,7 +2,7 @@ acl attr
 attr glibc
 autoconf diffutils m4 perl
 automake bash perl
-bash glibc libreadline ncurses readline
+bash glibc ncurses readline
 bc readline
 binutils elfutils glibc zlib
 bison glibc m4
