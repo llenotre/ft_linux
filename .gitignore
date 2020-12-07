@@ -11,3 +11,4 @@ initramfs/
 initramfs.img
 
 compiled
+logs/
