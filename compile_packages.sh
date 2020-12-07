@@ -56,49 +56,47 @@ get_sources() {
 }
 
 compile_package() {
-	name=$1
-
-	if ! grep ^${name}$ -- ../compiled; then
-		echo "Compiling $name";
-		mkdir -p $name
+	if [ ! -z "$1" ] && ! grep "^${1}$" -- ../compiled >/dev/null 2>&1; then
+		echo "Compiling $1";
 
 		IFS="\n"
-		grep "^$name " -- ../deps | tr ' ' "\n" | while read dep; do
-			if [ "$dep" != "$name" ]; then
-				echo "\"$name\" requires \"$dep\""
+		grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
+			if [ "$dep" != "$1" ]; then
+				echo "$1 requires $dep"
 				compile_package $dep || exit 1
 			fi
 		done
 		IFS=""
 
-		cd $name
+		mkdir -p $1
+		cd $1
 
-		export PKG_SRC="../../pkg_sources/$name/"
+		export PKG_SRC="../../pkg_sources/$1/"
 		export PKG_BUILD="x86_64-pc-linux-gnu"
 		export PKG_HOST="x86_64-pc-linux-gnu"
 
-		compile_script_path=../../scripts/${name}_compile.sh
+		compile_script_path=../../scripts/${1}_compile.sh
 		if ! stat $compile_script_path >/dev/null 2>&1; then
 			compile_script_path=../../scripts/__default_compile.sh
 		fi
 
-		$compile_script_path || {
-			echo "Compilation of $name failed"
-			exit 1
-		}
+		#$compile_script_path || {
+		#	echo "Compilation of $1 failed"
+		#	exit 1
+		#}
 
-		install_script_path=../../scripts/${name}_install.sh
+		install_script_path=../../scripts/${1}_install.sh
 		if ! stat $install_script_path >/dev/null 2>&1; then
 			install_script_path=../../scripts/__default_install.sh
 		fi
 
-		$install_script_path || {
-			echo "Installation of $name failed"
-			exit 1
-		}
+		#$install_script_path || {
+		#	echo "Installation of $1 failed"
+		#	exit 1
+		#}
 
 		cd ..
-		echo $name >>../compiled
+		echo $1 >>../compiled
 	fi
 }
 
@@ -118,7 +116,7 @@ compile_sources() {
 	IFS=""
 	pkg_list=$(ls -1 ../pkg_sources)
 	echo $pkg_list | while read file; do
-		compile_package $file || exit 1
+		compile_package $file || exit 1;
 	done
 	unset IFS
 
