@@ -21,7 +21,7 @@ findutils http://ftp.gnu.org/gnu/findutils/findutils-4.7.0.tar.xz 731356dec4b110
 flex https://github.com/westes/flex/releases/download/v2.6.4/flex-2.6.4.tar.gz 2882e3179748cc9f9c23ec593d6adc8d
 gawk http://ftp.gnu.org/gnu/gawk/gawk-5.1.0.tar.xz 8470c34eeecc41c1aa0c5d89e630df50
 gcc http://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.xz e9fd9b1789155ad09bcf3ae747596b50
-gdbm http://ftp.gnu.org/gnu/gdbm/gdbm-1.18.1.tar.gz 988dc82182121c7570e0cb8b4fcd5415
+gdbm https://ftp.gnu.org/gnu/gdbm/gdbm-1.11.tar.gz 72c832680cf0999caedbe5b265c8c1bd
 gettext http://ftp.gnu.org/gnu/gettext/gettext-0.21.tar.xz 40996bbaf7d1356d3c22e33a8b255b31
 glibc http://ftp.gnu.org/gnu/glibc/glibc-2.32.tar.xz 720c7992861c57cf97d66a2f36d8d1fa
 gmp http://ftp.gnu.org/gnu/gmp/gmp-6.2.1.tar.xz 0b82665c4a92fd2ade7440c13fcaa42b
@@ -41,7 +41,7 @@ libcap https://www.kernel.org/pub/linux/libs/security/linux-privs/libcap2/libcap
 libffi ftp://sourceware.org/pub/libffi/libffi-3.3.tar.gz 6313289e32f1d38a9df4770b014a2ca7
 libpipeline http://download.savannah.gnu.org/releases/libpipeline/libpipeline-1.5.3.tar.gz dad443d0911cf9f0f1bd90a334bc9004
 libtool http://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz 1bfb9b923f2c1339b4d2ce1807064aa5
-m4 http://ftp.gnu.org/gnu/m4/m4-1.4.18.tar.xz 730bb15d96fffe47e148d1e09235af82
+m4 https://ftp.gnu.org/gnu/m4/m4-1.4.17.tar.gz a5e9954b1dae036762f7b13673a2cf76
 make http://ftp.gnu.org/gnu/make/make-4.3.tar.gz fc7a67ea86ace13195b0bce683fd4469
 man-db http://download.savannah.gnu.org/releases/man-db/man-db-2.9.3.tar.xz 4c8721faa54a4c950c640e5e5c713fb0
 man-pages https://www.kernel.org/pub/linux/docs/man-pages/man-pages-5.09.tar.xz 3821e8d05f6f253e136ca2a4ff0aafbf

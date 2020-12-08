@@ -78,7 +78,7 @@ compile_package() {
 			if [ "$dep" != "$1" ]; then
 				print_tabs $2
 				echo "$1 requires $dep"
-				compile_package $dep $(($2 + 1)) || abort
+				compile_package "$dep" "$(($2 + 1))" || abort
 			fi
 		done
 		IFS=""
@@ -151,7 +151,7 @@ compile_sources() {
 		echo "   Preparing package $file..."
 		echo "------------------------------------------"
 		echo
-		compile_package $file 0 || abort
+		compile_package "$file" "0" || abort
 		echo
 		echo
 		echo

@@ -36,7 +36,7 @@ intltool xml-parser
 iproute2 glibc
 kbd glibc
 kmod glibc openssl xz zlib
-less glibc ncurses pcre
+less glibc ncurses
 libcap glibc
 libffi glibc
 libpipeline glibc
@@ -52,7 +52,7 @@ ncurses glibc
 ninja-build
 openssl perl
 patch attr glibc
-perl gdbm glibc
+perl gdbm glibc less
 pkg-config glibc bash
 procps-ng ncurses
 psmisc ncurses

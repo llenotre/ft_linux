@@ -5,5 +5,3 @@ $PKG_SRC/configure --build $PKG_BUILD --host $PKG_HOST\
 	--with-sysroot=$SYSROOT\
 	CFLAGS="-O3"
 make
-make check
-exit 0
