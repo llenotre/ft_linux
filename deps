@@ -4,15 +4,15 @@ autoconf diffutils m4 perl
 automake bash perl
 bash glibc ncurses readline
 bc readline
-binutils elfutils glibc zlib
+binutils glibc zlib
 bison glibc m4
-bzip glibc
+bzip2 glibc
 libcheck gawk
 coreutils acl attr glibc gmp libcap openssl
 dejagnu expect bash
 diffutils bash glibc
 e2fsprogs bash util-linux-libs
-elfutils bzip gcc xz zlib
+elfutils bzip2 gcc xz zlib
 eudev
 expat glibc
 expect tcl
@@ -20,7 +20,7 @@ file bzip2 glibc xz zlib
 findutils glibc bash
 flex glibc m4 bash
 gawk glibc mpfr bash
-gcc binutils mpc
+gcc bison flex binutils gmp mpc mpfr texinfo
 gdbm glibc bash
 gettext acl gcc bash
 glibc tzdata
@@ -56,7 +56,7 @@ perl gdbm glibc less
 pkg-config glibc bash
 procps-ng ncurses
 psmisc ncurses
-python bzip expat gdbm libffi openssl zlib
+python bzip2 expat gdbm libffi openssl zlib
 python-docs
 readline glibc ncurses
 sed acl attr glibc

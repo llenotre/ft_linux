@@ -6,7 +6,7 @@ bash http://ftp.gnu.org/gnu/bash/bash-5.0.tar.gz 2b44b47b905be16f45709648f671820
 bc https://github.com/gavinhoward/bc/releases/download/3.1.6/bc-3.1.6.tar.xz bd5e3922d95098ef3dcbddf3f93321fb
 binutils http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.xz 7126f370ffbd46c08fcc5ce7aee2805d
 bison http://ftp.gnu.org/gnu/bison/bison-3.7.4.tar.xz bcd5f37396b061f2f00e5b1db58172ed
-bzip https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz 67e051268d0c475ea773822f7500d0e5
+bzip2 https://www.sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz 67e051268d0c475ea773822f7500d0e5
 libcheck https://github.com/libcheck/check/releases/download/0.15.2/check-0.15.2.tar.gz 50fcafcecde5a380415b12e9c574e0b2
 coreutils http://ftp.gnu.org/gnu/coreutils/coreutils-8.32.tar.xz 022042695b7d5bcf1a93559a9735e668
 dejagnu http://ftp.gnu.org/gnu/dejagnu/dejagnu-1.6.2.tar.gz e1b07516533f351b3aba3423fafeffd6

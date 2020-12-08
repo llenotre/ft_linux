@@ -73,7 +73,6 @@ print_tabs() {
 
 compile_package() {
 	if [ ! -z "$1" ]; then
-		IFS="\n"
 		grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
 			if [ "$dep" != "$1" ]; then
 				print_tabs $2
@@ -81,7 +80,6 @@ compile_package() {
 				compile_package "$dep" "$(($2 + 1))" || abort
 			fi
 		done
-		IFS=""
 
 		mkdir -p $1
 		cd $1
