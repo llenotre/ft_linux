@@ -4,7 +4,7 @@ export BUILD_ZLIB=False
 export BUILD_BZIP2=0
 
 cd $PKG_SRC
-sh Configure                                     \
+sh Configure -des                                \
 	-Dprefix=/usr                                \
     -Dvendorprefix=/usr                          \
     -Dprivlib=/usr/lib/perl5/5.32/core_perl      \

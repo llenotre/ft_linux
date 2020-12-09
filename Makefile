@@ -15,11 +15,11 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
 
-$(INITRAMFS): Makefile tmp_init
+$(INITRAMFS): Makefile tmp_init compile_packages.sh
 	rm -rf $(INITRAMFS_DIR) installed
-	mkdir -p $(INITRAMFS_DIR)/{bin,etc,proc,sys,mnt}
+	mkdir -p $(INITRAMFS_DIR)/{etc,proc,sys,mnt}
 	mkdir -p $(INITRAMFS_DIR)/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
-	cd $(INITRAMFS_DIR) && ln -rs usr/lib lib && ln -rs usr/lib lib64
+	cd $(INITRAMFS_DIR) && ln -rs usr/bin bin && ln -rs usr/lib lib && ln -rs usr/lib lib64
 	cd $(INITRAMFS_DIR)/usr && ln -rs lib lib64 && ln -rs bin sbin
 	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
 	./compile_packages.sh --tmp
@@ -31,6 +31,7 @@ tmp: tmp_linux.iso
 tmp_linux.iso: $(INITRAMFS) grub.cfg #$(KERNEL_BIN)
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
+	./copy_installer.sh
 	cp -f $(KERNEL_BIN) iso/boot/$(KERNEL_BIN_NAME)
 	cp -f $(INITRAMFS) iso/boot/$(INITRAMFS)
 	grub-mkrescue -o $@ iso

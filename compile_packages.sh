@@ -73,13 +73,13 @@ print_tabs() {
 
 compile_package() {
 	if [ ! -z "$1" ]; then
-		grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
-			if [ "$dep" != "$1" ]; then
-				print_tabs $2
-				echo "$1 requires $dep"
-				compile_package "$dep" "$(($2 + 1))" || abort
-			fi
-		done
+		#grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
+		#	if [ "$dep" != "$1" ]; then
+		#		print_tabs $2
+		#		echo "$1 requires $dep"
+		#		compile_package "$dep" "$(($2 + 1))" || abort
+		#	fi
+		#done
 
 		mkdir -p $1
 		cd $1
@@ -144,29 +144,12 @@ compile_sources() {
 		echo "   Preparing temporary system..."
 		echo "-----------------------------------"
 		echo
-		compile_package "m4" "0" || abort
+		compile_package "glibc" "0" || abort
+		compile_package "readline" "0" || abort
 		compile_package "ncurses" "0" || abort
 		compile_package "bash" "0" || abort
+		compile_package "libcap" "0" || abort
 		compile_package "coreutils" "0" || abort
-		compile_package "diffutils" "0" || abort
-		compile_package "file" "0" || abort
-		compile_package "findutils" "0" || abort
-		compile_package "gawk" "0" || abort
-		compile_package "grep" "0" || abort
-		compile_package "gzip" "0" || abort
-		compile_package "make" "0" || abort
-		compile_package "patch" "0" || abort
-		compile_package "sed" "0" || abort
-		compile_package "tar" "0" || abort
-		compile_package "xz" "0" || abort
-		compile_package "binutils" "0" || abort
-		compile_package "gcc" "0" || abort
-		compile_package "libstdc++" "0" || abort
-		compile_package "gettext" "0" || abort
-		compile_package "bison" "0" || abort
-		compile_package "perl" "0" || abort
-		compile_package "python" "0" || abort
-		compile_package "texinfo" "0" || abort
 		compile_package "util-linux" "0" || abort
 		echo
 		echo "Done"
