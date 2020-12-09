@@ -107,21 +107,21 @@ compile_package() {
 			echo $1 >>../../compiled
 		fi
 
-		if ! grep "^${1}$" -- ../../installed >/dev/null 2>&1; then
-			print_tabs $2
-			echo "Installing $1";
-			install_script_path=../../scripts/${1}_install.sh
-			if ! stat $install_script_path >/dev/null 2>&1; then
-				install_script_path=../../scripts/__default_install.sh
-			fi
-			$install_script_path >$install_logs_path 2>&1 || {
-				print_tabs $2
-				echo "Installation of $1 failed"
-				abort
-			}
+		#if ! grep "^${1}$" -- ../../installed >/dev/null 2>&1; then
+		#	print_tabs $2
+		#	echo "Installing $1";
+		#	install_script_path=../../scripts/${1}_install.sh
+		#	if ! stat $install_script_path >/dev/null 2>&1; then
+		#		install_script_path=../../scripts/__default_install.sh
+		#	fi
+		#	$install_script_path >$install_logs_path 2>&1 || {
+		#		print_tabs $2
+		#		echo "Installation of $1 failed"
+		#		abort
+		#	}
 
-			echo $1 >>../../installed
-		fi
+		#	echo $1 >>../../installed
+		#fi
 
 		cd ..
 	fi
