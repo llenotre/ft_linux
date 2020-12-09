@@ -1,3 +1,3 @@
 #!/bin/bash
 
-make install prefix="$SYSROOT/usr/share/man"
+make DESTDIR="$SYSROOT" install prefix="$SYSROOT/usr/share/man"

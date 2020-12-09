@@ -1,13 +1,13 @@
 #!/bin/bash
 
 touch $SYSROOT/etc/ld.so.conf
-make install
+make DESTDIR="$SYSROOT" install
 
-cp -v ../nscd/nscd.conf $SYSROOT/etc/nscd.conf
-mkdir -pv $SYSROOT/var/cache/nscd
-
-make localedata
-make install-locales
+#cp -v ../nscd/nscd.conf $SYSROOT/etc/nscd.conf
+#mkdir -pv $SYSROOT/var/cache/nscd
+#
+#make localedata
+#make install-locales
 
 cat > $SYSROOT/etc/nsswitch.conf << "EOF"
 # Begin /etc/nsswitch.conf

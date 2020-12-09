@@ -1,4 +1,4 @@
 #!/bin/bash
 
 cd $PKG_SRC
-make PREFIX=$SYSROOT/usr install
+make DESTDIR="$SYSROOT" PREFIX=$SYSROOT/usr install

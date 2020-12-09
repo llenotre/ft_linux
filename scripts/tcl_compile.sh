@@ -1,9 +1,10 @@
 #!/bin/bash
 
 cd $PKG_SRC/unix
-./configure --prefix=$SYSROOT/usr           \
+./configure --with-sysroot="$SYSROOT"       \
+            --prefix="/usr"                 \
             --mandir=$SYSROOT/usr/share/man \
-            $([ "$(uname -m)" = x86_64 ] && echo --enable-64bit)
+            --enable-64bit
 
 make
 

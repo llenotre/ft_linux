@@ -107,21 +107,21 @@ compile_package() {
 			echo $1 >>../../compiled
 		fi
 
-		#if ! grep "^${1}$" -- ../../installed >/dev/null 2>&1; then
-		#	print_tabs $2
-		#	echo "Installing $1";
-		#	install_script_path=../../scripts/${1}_install.sh
-		#	if ! stat $install_script_path >/dev/null 2>&1; then
-		#		install_script_path=../../scripts/__default_install.sh
-		#	fi
-		#	$install_script_path >$install_logs_path 2>&1 || {
-		#		print_tabs $2
-		#		echo "Installation of $1 failed"
-		#		abort
-		#	}
+		if ! grep "^${1}$" -- ../../installed >/dev/null 2>&1; then
+			print_tabs $2
+			echo "Installing $1";
+			install_script_path=../../scripts/${1}_install.sh
+			if ! stat $install_script_path >/dev/null 2>&1; then
+				install_script_path=../../scripts/__default_install.sh
+			fi
+			$install_script_path >$install_logs_path 2>&1 || {
+				print_tabs $2
+				echo "Installation of $1 failed"
+				abort
+			}
 
-		#	echo $1 >>../../installed
-		#fi
+			echo $1 >>../../installed
+		fi
 
 		cd ..
 	fi
@@ -136,28 +136,58 @@ compile_sources() {
 
 	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
 
-	#export CFLAGS="--sysroot=$initramfs_path"
-	#export CXXFLAGS="--sysroot=$initramfs_path"
-	#export LDFLAGS="--sysroot=$initramfs_path"
 	export SYSROOT="$initramfs_path"
 	export MAKEFLAGS='-j8'
 
-	IFS=""
-	pkg_list=$(ls -1 ../pkg_sources)
-	echo $pkg_list | while read file; do
-		echo "------------------------------------------"
-		echo "   Preparing package $file..."
-		echo "------------------------------------------"
+	if [ "$1" = "--tmp" ]; then
+		echo "-----------------------------------"
+		echo "   Preparing temporary system..."
+		echo "-----------------------------------"
 		echo
-		compile_package "$file" "0" || abort
+		compile_package "m4" "0" || abort
+		compile_package "ncurses" "0" || abort
+		compile_package "bash" "0" || abort
+		compile_package "coreutils" "0" || abort
+		compile_package "diffutils" "0" || abort
+		compile_package "file" "0" || abort
+		compile_package "findutils" "0" || abort
+		compile_package "gawk" "0" || abort
+		compile_package "grep" "0" || abort
+		compile_package "gzip" "0" || abort
+		compile_package "make" "0" || abort
+		compile_package "patch" "0" || abort
+		compile_package "sed" "0" || abort
+		compile_package "tar" "0" || abort
+		compile_package "xz" "0" || abort
+		compile_package "binutils" "0" || abort
+		compile_package "gcc" "0" || abort
+		compile_package "libstdc++" "0" || abort
+		compile_package "gettext" "0" || abort
+		compile_package "bison" "0" || abort
+		compile_package "perl" "0" || abort
+		compile_package "python" "0" || abort
+		compile_package "texinfo" "0" || abort
+		compile_package "util-linux" "0" || abort
 		echo
-		echo
-		echo
-	done
-	unset IFS
+		echo "Done"
+	else
+		IFS=""
+		pkg_list=$(ls -1 ../pkg_sources)
+		echo $pkg_list | while read file; do
+			echo "------------------------------------------"
+			echo "   Preparing package $file..."
+			echo "------------------------------------------"
+			echo
+			compile_package "$file" "0" || abort
+			echo
+			echo
+			echo
+		done
+		unset IFS
+	fi
 
 	cd ..
 }
 
 get_sources
-compile_sources
+compile_sources $1

@@ -15,13 +15,15 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
 
-$(INITRAMFS): Makefile init
+$(INITRAMFS): Makefile tmp_init
 	rm -rf $(INITRAMFS_DIR) installed
-	mkdir -p $(INITRAMFS_DIR)/{bin,etc,proc,sys,mnt,usr/lib}
-	cd $(INITRAMFS_DIR) && ln -rs usr/lib lib && ln -rs usr/lib64 lib64
+	mkdir -p $(INITRAMFS_DIR)/{bin,etc,proc,sys,mnt}
+	mkdir -p $(INITRAMFS_DIR)/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
+	cd $(INITRAMFS_DIR) && ln -rs usr/lib lib && ln -rs usr/lib lib64
+	cd $(INITRAMFS_DIR)/usr && ln -rs lib lib64 && ln -rs bin sbin
 	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
-	./compile_packages.sh
-	cp init $(INITRAMFS_DIR)
+	./compile_packages.sh --tmp
+	cp tmp_init $(INITRAMFS_DIR)/init
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
 
 tmp: tmp_linux.iso

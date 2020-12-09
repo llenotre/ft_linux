@@ -1,3 +1,3 @@
 #!/bin/bash
 cd $PKG_SRC
-make install
+make DESTDIR="$SYSROOT" install

@@ -1,7 +1,5 @@
 #!/bin/bash
 
-$PKG_SRC/configure --build $PKG_BUILD --host $PKG_HOST\
-	--prefix=$SYSROOT/usr\
-	--with-sysroot=$SYSROOT\
+$PKG_SRC/configure --build $PKG_BUILD --host $PKG_HOST --with-sysroot="$SYSROOT" --prefix="/usr" \
 	CFLAGS="-O3"
 make

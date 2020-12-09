@@ -1,4 +1,4 @@
 #!/bin/bash
 
-$PKG_SRC/configure --prefix="$SYSROOT/usr"
+$PKG_SRC/configure --with-sysroot="$SYSROOT" --prefix="/usr"
 make

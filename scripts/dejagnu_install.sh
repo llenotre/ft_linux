@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make install
+make DESTDIR="$SYSROOT" install
 install -v -dm755  $SYSROOT/usr/share/doc/dejagnu
 install -v -m644   doc/dejagnu.{html,txt} $SYSROOT/usr/share/doc/dejagnu
 

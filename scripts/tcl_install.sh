@@ -1,4 +1,4 @@
 #!/bin/bash
 
-make install
-make install-private-headers
+make DESTDIR="$SYSROOT" install
+make DESTDIR="$SYSROOT" install-private-headers
