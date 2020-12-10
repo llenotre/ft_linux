@@ -69,7 +69,7 @@ tcl-html https://downloads.sourceforge.net/tcl/tcl8.6.10-html.tar.gz a012711241b
 texinfo http://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.xz d4c5d8cc84438c5993ec5163a59522a6
 tzdata https://www.iana.org/time-zones/repository/releases/tzdata2020d.tar.gz 2f58d72e31cf073f5076c2cbf182cba3
 udev-lfs http://anduin.linuxfromscratch.org/LFS/udev-lfs-20171102.tar.xz 27cd82f9a61422e186b9d6759ddf1634
-util-linux https://www.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.xz fe7c0f7e439f08970e462c9d44599903
+util-linux https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.36/util-linux-2.36.tar.gz 742b4636cca3be155d107cf0e114890e
 vim http://anduin.linuxfromscratch.org/LFS/vim-8.2.1845.tar.gz 085cf5e6204c3e9348d9e56b422adfba
 xml-parser https://cpan.metacpan.org/authors/id/T/TO/TODDR/XML-Parser-2.46.tar.gz 80bb18a8e6240fcf7ec2f7b57601c170
 xz https://tukaani.org/xz/xz-5.2.5.tar.xz aa1621ec7013a19abab52a8aff04fe5b
