@@ -24,6 +24,7 @@ $(INITRAMFS): Makefile tmp_init compile_packages.sh
 	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
 	./compile_packages.sh --tmp
 	cp tmp_init $(INITRAMFS_DIR)/init
+	# TODO Copy early mount/umount/fdisk to initramfs
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
 
 tmp: tmp_linux.iso
