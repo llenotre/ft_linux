@@ -32,6 +32,7 @@ tmp: tmp_linux.iso
 tmp_linux.iso: $(INITRAMFS) grub.cfg #$(KERNEL_BIN)
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
+	./compile_packages.sh --install
 	./copy_installer.sh
 	cp -f $(KERNEL_BIN) iso/boot/$(KERNEL_BIN_NAME)
 	cp -f $(INITRAMFS) iso/boot/$(INITRAMFS)

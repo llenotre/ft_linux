@@ -8,7 +8,7 @@ binutils glibc
 bison glibc m4
 bzip2 glibc
 libcheck gawk
-coreutils acl attr glibc gmp
+coreutils acl attr glibc gmp libcap
 dejagnu expect bash
 diffutils bash glibc
 e2fsprogs bash util-linux-libs

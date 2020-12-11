@@ -35,7 +35,7 @@ get_sources() {
 
 		output=pkg_tarballs/${name}.compressed
 
-		if ! stat $output >/dev/null 2>&1; then
+		if [ "$1" = "--tmp" ] && ! stat $output >/dev/null 2>&1; then
 			echo "Downloading $name (url: $url checksum: $checksum)"
 			wget -O "$output" "$url"
 
@@ -87,8 +87,6 @@ compile_package() {
 		cd $1
 
 		export PKG_SRC="../../pkg_sources/$1/"
-		export PKG_BUILD="x86_64-pc-linux-gnu"
-		export PKG_HOST="x86_64-pc-linux-gnu"
 
 		compile_logs_path=../../logs/$1_compile.log
 		install_logs_path=../../logs/$1_install.log
@@ -138,10 +136,14 @@ compile_sources() {
 
 	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
 
-	export SYSROOT="$initramfs_path"
+	export PKG_BUILD="x86_64-pc-linux-gnu"
+	export PKG_HOST="x86_64-pc-linux-gnu"
 	export MAKEFLAGS='-j8'
 
 	if [ "$1" = "--tmp" ]; then
+		export SYSROOT="$initramfs_path"
+		export PKG_TMP="true"
+
 		echo "-----------------------------------"
 		echo "   Preparing temporary system..."
 		echo "-----------------------------------"
@@ -154,11 +156,36 @@ compile_sources() {
 		compile_package "acl" "0" "false" || abort
 		compile_package "attr" "0" "false" || abort
 		compile_package "coreutils" "0" "false" || abort
-		compile_package "e2fsprogs" "0" "false" || abort
 		compile_package "util-linux" "0" "false" || abort
+		compile_package "e2fsprogs" "0" "false" || abort
+	elif [ "$1" = "--install" ]; then
+		export SYSROOT="$(pwd)/iso/install/"
+		export PKG_TMP="true"
+
+		echo "--------------------------------------"
+		echo "   Preparing installation system..."
+		echo "--------------------------------------"
 		echo
-		echo "Done"
+		mkdir -p $SYSROOT
+		compile_package "glibc" "0" "false" || abort
+		compile_package "readline" "0" "false" || abort
+		compile_package "ncurses" "0" "false" || abort
+		compile_package "bash" "0" "false" || abort
+		compile_package "libcap" "0" "false" || abort
+		compile_package "acl" "0" "false" || abort
+		compile_package "attr" "0" "false" || abort
+		compile_package "coreutils" "0" "false" || abort
+		compile_package "util-linux" "0" "false" || abort
+		compile_package "e2fsprogs" "0" "false" || abort
+
+		compile_package "gcc" "0" "true" || abort
+		compile_package "make" "0" "true" || abort
+		compile_package "autoconf" "0" "true" || abort
+		compile_package "automake" "0" "true" || abort
 	else
+		export SYSROOT="/"
+		export PKG_TMP="false"
+
 		IFS=""
 		pkg_list=$(ls -1 ../pkg_sources)
 		echo $pkg_list | while read file; do
@@ -174,8 +201,11 @@ compile_sources() {
 		unset IFS
 	fi
 
+	echo
+	echo "Done"
+
 	cd ..
 }
 
-get_sources
+get_sources $1
 compile_sources $1
