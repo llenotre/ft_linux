@@ -18,6 +18,7 @@ check_smart_boy() {
 		unique_file_name=$(ls -1)
 		cd $unique_file_name 2>/dev/null && {
 			mv * ..;
+			mv .* ..; # TODO Exclude `.` and `..`
 			cd ..;
 			rm -rf $unique_file_name;
 		}
@@ -55,7 +56,7 @@ get_sources() {
 			mkdir -p $name
 			cd $name
 
-			tar xvf ../../"$output" >/dev/null;
+			tar xf ../../"$output" >/dev/null;
 			check_smart_boy $name
 
 			cd ../..
