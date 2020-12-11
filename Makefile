@@ -15,16 +15,16 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
 
-$(INITRAMFS): Makefile tmp_init compile_packages.sh
+$(INITRAMFS): Makefile tmp_init compile_packages.sh source_urls deps
 	rm -rf $(INITRAMFS_DIR) installed
 	mkdir -p $(INITRAMFS_DIR)/{etc,proc,sys,mnt}
 	mkdir -p $(INITRAMFS_DIR)/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
-	cd $(INITRAMFS_DIR) && ln -rs usr/bin bin && ln -rs usr/lib lib && ln -rs usr/lib lib64
-	cd $(INITRAMFS_DIR)/usr && ln -rs lib lib64 && ln -rs bin sbin
+	cd $(INITRAMFS_DIR) && ln -rs usr/bin bin && ln -rs usr/sbin sbin && ln -rs usr/lib lib && ln -rs usr/lib lib64
+	cd $(INITRAMFS_DIR)/usr && ln -rs lib lib64
 	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
 	./compile_packages.sh --tmp
 	cp tmp_init $(INITRAMFS_DIR)/init
-	# TODO Copy early mount/umount/fdisk to initramfs
+	rm -rf initramfs/home/* initramfs/usr/share/man/
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
 
 tmp: tmp_linux.iso

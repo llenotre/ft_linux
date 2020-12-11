@@ -73,13 +73,15 @@ print_tabs() {
 
 compile_package() {
 	if [ ! -z "$1" ]; then
-		#grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
-		#	if [ "$dep" != "$1" ]; then
-		#		print_tabs $2
-		#		echo "$1 requires $dep"
-		#		compile_package "$dep" "$(($2 + 1))" || abort
-		#	fi
-		#done
+		if [ "$3" == "true" ]; then
+			grep "^$1 " -- ../deps | tr ' ' "\n" | while read dep; do
+				if [ "$dep" != "$1" ]; then
+					print_tabs $2
+					echo "$1 requires $dep"
+					compile_package "$dep" "$(($2 + 1))" || abort
+				fi
+			done
+		fi
 
 		mkdir -p $1
 		cd $1
@@ -144,13 +146,16 @@ compile_sources() {
 		echo "   Preparing temporary system..."
 		echo "-----------------------------------"
 		echo
-		compile_package "glibc" "0" || abort
-		compile_package "readline" "0" || abort
-		compile_package "ncurses" "0" || abort
-		compile_package "bash" "0" || abort
-		compile_package "libcap" "0" || abort
-		compile_package "coreutils" "0" || abort
-		compile_package "util-linux" "0" || abort
+		compile_package "glibc" "0" "false" || abort
+		compile_package "readline" "0" "false" || abort
+		compile_package "ncurses" "0" "false" || abort
+		compile_package "bash" "0" "false" || abort
+		compile_package "libcap" "0" "false" || abort
+		compile_package "acl" "0" "false" || abort
+		compile_package "attr" "0" "false" || abort
+		compile_package "coreutils" "0" "false" || abort
+		compile_package "e2fsprogs" "0" "false" || abort
+		compile_package "util-linux" "0" "false" || abort
 		echo
 		echo "Done"
 	else
@@ -161,7 +166,7 @@ compile_sources() {
 			echo "   Preparing package $file..."
 			echo "------------------------------------------"
 			echo
-			compile_package "$file" "0" || abort
+			compile_package "$file" "0" "true" || abort
 			echo
 			echo
 			echo

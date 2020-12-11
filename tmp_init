@@ -11,10 +11,19 @@ mknod /dev/kmsg c 1 11
 
 mknod /dev/initrd b 1 250
 
-mknod /dev/hda b 3 0
+mknod /dev/sr0 b 11 0
 
 mknod /dev/tty c 5 0
 
 mknod /dev/sda b 8 0
+mknod /dev/sda1 b 8 1
+mknod /dev/sda2 b 8 2
+mknod /dev/sda3 b 8 3
+
+chmod 0660 /dev/*
+chown -R 0:0 /*
+
+mount -t proc /proc proc/
+mount --rbind /sys sys/
 
 bash

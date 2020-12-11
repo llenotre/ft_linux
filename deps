@@ -69,7 +69,7 @@ tcl-html
 texinfo gzip ncurses bash
 tzdata
 udev-lfs
-util-linux coreutils libcap file ncurses readline shadow
+util-linux coreutils libcap file ncurses readline shadow gcc
 vim acl glibc gpm libffi
 xml-parser expat
 xz bash
