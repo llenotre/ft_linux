@@ -6,6 +6,8 @@ KERNEL_BIN_NAME = vmlinuz-$(KERNEL_VERSION)-llenotre
 INITRAMFS = initramfs.img
 INITRAMFS_DIR = initramfs/
 
+INSTALL_SYSTEM_PATH = iso/install/
+
 all: tmp_linux.iso
 
 $(KERNEL_BIN): Makefile
@@ -16,13 +18,7 @@ $(KERNEL_BIN): Makefile
 	make -C $(KERNEL_SRC)
 
 $(INITRAMFS): Makefile tmp_init compile_packages.sh source_urls deps
-	rm -rf $(INITRAMFS_DIR) installed
-	mkdir -p $(INITRAMFS_DIR)/{etc,proc,sys,mnt}
-	mkdir -p $(INITRAMFS_DIR)/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
-	cd $(INITRAMFS_DIR) && ln -rs usr/bin bin && ln -rs usr/sbin sbin && ln -rs usr/lib lib && ln -rs usr/lib lib64
-	cd $(INITRAMFS_DIR)/usr && ln -rs lib lib64
-	make -C $(KERNEL_SRC) headers_install ARCH=i386 INSTALL_HDR_PATH=../$(INITRAMFS_DIR)/usr
-	./compile_packages.sh --tmp
+	./compile_packages.sh 0
 	cp tmp_init $(INITRAMFS_DIR)/init
 	rm -rf initramfs/home/* initramfs/usr/share/man/
 	cd $(INITRAMFS_DIR)/ && find . | cpio -H newc -o | gzip >../$(INITRAMFS)
@@ -32,8 +28,7 @@ tmp: tmp_linux.iso
 tmp_linux.iso: $(INITRAMFS) grub.cfg #$(KERNEL_BIN)
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
-	rm -rf iso/install/
-	./compile_packages.sh --install
+	./compile_packages.sh 1
 	./copy_installer.sh
 	cp -f $(KERNEL_BIN) iso/boot/$(KERNEL_BIN_NAME)
 	cp -f $(INITRAMFS) iso/boot/$(INITRAMFS)

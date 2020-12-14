@@ -11,7 +11,7 @@ libcheck gawk
 coreutils acl attr glibc gmp libcap
 dejagnu expect bash
 diffutils bash glibc
-e2fsprogs bash util-linux-libs
+e2fsprogs bash util-linux
 elfutils bzip2 gcc xz
 eudev
 expat glibc
@@ -20,7 +20,7 @@ file bzip2 glibc xz
 findutils glibc bash
 flex glibc m4 bash
 gawk glibc mpfr bash
-gcc bison flex binutils gmp mpc mpfr texinfo
+gcc bison flex binutils gmp mpc mpfr texinfo zstd
 gdbm glibc bash
 gettext acl gcc bash
 glibc tzdata

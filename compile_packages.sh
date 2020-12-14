@@ -8,60 +8,24 @@ abort() {
 	sleep 10
 }
 
-check_smart_boy() {
-	name=$1
+prepare() {
+	rm -f $installed_file
+	echo "Preparing sysroot in '$1'..."
+	mkdir -p $1/{etc,proc,sys,mnt}
+	mkdir -p $1/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
 
-	count=$(ls -1 | wc -l)
-	if [ $count -gt 1 ]; then
-		echo "Congrats $name, you're a freaking moron who doesn't know how to make a proper tarball"
-	else
-		unique_file_name=$(ls -1)
-		cd $unique_file_name 2>/dev/null && {
-			mv * ..;
-			mv .* ..; # TODO Exclude `.` and `..`
-			cd ..;
-			rm -rf $unique_file_name;
-		}
-	fi
-}
+	cd "$1"
+	ln -rs usr/bin bin
+	ln -rs usr/sbin sbin
+	ln -rs usr/lib lib
+	ln -rs usr/lib lib64
+	cd -
 
-get_sources() {
-	mkdir -p pkg_tarballs
-	mkdir -p pkg_sources
+	cd "$1/usr"
+	ln -rs lib lib64
+	cd -
 
-	cat source_urls | while read pkg; do
-		name=`echo $pkg | cut -d ' ' -f 1`
-		url=`echo $pkg | cut -d ' ' -f 2`
-		checksum=`echo $pkg | cut -d ' ' -f 3`
-
-		output=pkg_tarballs/${name}.compressed
-
-		if [ "$1" = "--tmp" ] && ! stat $output >/dev/null 2>&1; then
-			echo "Downloading $name (url: $url checksum: $checksum)"
-			wget -O "$output" "$url"
-
-			echo $checksum >/tmp/ft_linux_checksum0
-			md5sum "$output" | cut -d ' ' -f 1 >/tmp/ft_linux_checksum1
-			diff /tmp/ft_linux_checksum0 /tmp/ft_linux_checksum1 || {
-				echo "Checksum for $name doesn't match";
-				rm $output;
-				abort
-			}
-		fi
-
-		if ! stat pkg_sources/$name >/dev/null 2>&1; then
-			echo "Extracting $output";
-
-			cd pkg_sources
-			mkdir -p $name
-			cd $name
-
-			tar xf ../../"$output" >/dev/null;
-			check_smart_boy $name
-
-			cd ../..
-		fi
-	done
+	make -C $kernel_src headers_install ARCH=i386 INSTALL_HDR_PATH="$1/usr"
 }
 
 print_tabs() {
@@ -79,7 +43,7 @@ compile_package() {
 				if [ "$dep" != "$1" ]; then
 					print_tabs $2
 					echo "$1 requires $dep"
-					compile_package "$dep" "$(($2 + 1))" || abort
+					compile_package "$dep" "$(($2 + 1))" || exit 1
 				fi
 			done
 		fi
@@ -89,85 +53,67 @@ compile_package() {
 
 		export PKG_SRC="../../pkg_sources/$1/"
 
-		compile_logs_path=../../logs/$1_compile.log
-		install_logs_path=../../logs/$1_install.log
+		compile_logs_path=$logs_dir/$1_compile.log
+		install_logs_path=$logs_dir/$1_install.log
 
-		if ! grep "^${1}$" -- ../../compiled >/dev/null 2>&1; then
+		if ! grep "^${1}$" -- $compiled_file >/dev/null 2>&1; then
 			print_tabs $2
 			echo "Compiling $1";
-			compile_script_path=../../scripts/${1}_compile.sh
+			compile_script_path=$scripts_dir/${1}_compile.sh
 			if ! stat $compile_script_path >/dev/null 2>&1; then
-				compile_script_path=../../scripts/__default_compile.sh
+				compile_script_path=$scripts_dir/__default_compile.sh
 			fi
 			$compile_script_path >$compile_logs_path 2>&1 || {
 				print_tabs $2
 				echo "Compilation of $1 failed"
-				abort
+				exit 1
 			}
 
-			echo $1 >>../../compiled
+			echo $1 >>$compiled_file
 		fi
 
-		if ! grep "^${1}$" -- ../../installed >/dev/null 2>&1; then
+		if ! grep "^${1}$" -- $installed_file >/dev/null 2>&1; then
 			print_tabs $2
 			echo "Installing $1";
-			install_script_path=../../scripts/${1}_install.sh
+			install_script_path=$scripts_dir/${1}_install.sh
 			if ! stat $install_script_path >/dev/null 2>&1; then
-				install_script_path=../../scripts/__default_install.sh
+				install_script_path=$scripts_dir/__default_install.sh
 			fi
 			$install_script_path >$install_logs_path 2>&1 || {
 				print_tabs $2
 				echo "Installation of $1 failed"
-				abort
+				exit 1
 			}
 
-			echo $1 >>../../installed
+			echo $1 >>$installed_file
 		fi
 
 		cd ..
 	fi
 }
 
-compile_sources() {
+build_system() {
 	touch compiled
 	touch installed
 	mkdir -p logs
 	mkdir -p pkg_builds
 	cd pkg_builds
 
-	initramfs_path="$(cd ../; echo $(pwd)/initramfs/)"
-
 	export PKG_BUILD="x86_64-pc-linux-gnu"
 	export PKG_HOST="x86_64-pc-linux-gnu"
 	export MAKEFLAGS='-j8'
 
-	if [ "$1" = "--tmp" ]; then
-		export SYSROOT="$initramfs_path"
+	echo "----------------------------------"
+	echo "   Preparing stage $1 system..."
+	echo "----------------------------------"
+	echo
+	if [ "$1" = "0" ]; then
+		export SYSROOT="$pwd/initramfs/"
 		export PKG_TMP="true"
-
-		echo "-----------------------------------"
-		echo "   Preparing temporary system..."
-		echo "-----------------------------------"
-		echo
-		compile_package "glibc" "0" "false" || abort
-		compile_package "readline" "0" "false" || abort
-		compile_package "ncurses" "0" "false" || abort
-		compile_package "bash" "0" "false" || abort
-		compile_package "libcap" "0" "false" || abort
-		compile_package "acl" "0" "false" || abort
-		compile_package "attr" "0" "false" || abort
-		compile_package "coreutils" "0" "false" || abort
-		compile_package "util-linux" "0" "false" || abort
-		compile_package "e2fsprogs" "0" "false" || abort
-	elif [ "$1" = "--install" ]; then
-		export SYSROOT="$(pwd)/iso/install/"
-		export PKG_TMP="true"
-
-		echo "--------------------------------------"
-		echo "   Preparing installation system..."
-		echo "--------------------------------------"
-		echo
+		rm -rf $SYSROOT
 		mkdir -p $SYSROOT
+		prepare "$SYSROOT"
+
 		compile_package "glibc" "0" "false" || abort
 		compile_package "readline" "0" "false" || abort
 		compile_package "ncurses" "0" "false" || abort
@@ -176,28 +122,41 @@ compile_sources() {
 		compile_package "acl" "0" "false" || abort
 		compile_package "attr" "0" "false" || abort
 		compile_package "coreutils" "0" "false" || abort
-		compile_package "util-linux" "0" "false" || abort
+		compile_package "util-linux" "0" "false"
 		compile_package "e2fsprogs" "0" "false" || abort
+	elif [ "$1" = "1" ]; then
+		export SYSROOT="$pwd/iso/install/"
+		export PKG_TMP="true"
+		rm -rf $SYSROOT
+		mkdir -p $SYSROOT
+		prepare "$SYSROOT"
 
-		compile_package "gcc" "0" "true" || abort
+		compile_package "m4" "0" "true" || abort
+		compile_package "ncurses" "0" "true" || abort
+		compile_package "bash" "0" "true" || abort
+		compile_package "coreutils" "0" "true" || abort
+		compile_package "diffutils" "0" "true" || abort
+		compile_package "file" "0" "true" || abort
+		compile_package "findutils" "0" "true" || abort
+		compile_package "gawk" "0" "true" || abort
+		compile_package "grep" "0" "true" || abort
+		compile_package "gzip" "0" "true" || abort
 		compile_package "make" "0" "true" || abort
-		compile_package "autoconf" "0" "true" || abort
-		compile_package "automake" "0" "true" || abort
+		compile_package "patch" "0" "true" || abort
+		compile_package "sed" "0" "true" || abort
+		compile_package "tar" "0" "true" || abort
+		compile_package "xz" "0" "true" || abort
+		compile_package "binutils" "0" "true" || abort
+		compile_package "gcc" "0" "true" || abort
 	else
 		export SYSROOT="/"
 		export PKG_TMP="false"
+		prepare "$SYSROOT"
 
 		IFS=""
 		pkg_list=$(ls -1 ../pkg_sources)
 		echo $pkg_list | while read file; do
-			echo "------------------------------------------"
-			echo "   Preparing package $file..."
-			echo "------------------------------------------"
-			echo
 			compile_package "$file" "0" "true" || abort
-			echo
-			echo
-			echo
 		done
 		unset IFS
 	fi
@@ -208,5 +167,10 @@ compile_sources() {
 	cd ..
 }
 
-get_sources $1
-compile_sources $1
+pwd=$(pwd)
+kernel_src=$pwd/kernel_src
+logs_dir=$pwd/logs
+scripts_dir=$pwd/scripts
+compiled_file=$pwd/compiled
+installed_file=$pwd/installed
+build_system $1
