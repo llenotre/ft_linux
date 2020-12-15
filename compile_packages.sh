@@ -11,7 +11,7 @@ abort() {
 prepare() {
 	rm -f $installed_file
 	echo "Preparing sysroot in '$1'..."
-	mkdir -p $1/{etc,proc,sys,mnt}
+	mkdir -p $1/{etc,proc,sys,mnt,boot}
 	mkdir -p $1/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
 
 	cd "$1"
@@ -113,6 +113,7 @@ build_system() {
 		rm -rf $SYSROOT
 		mkdir -p $SYSROOT
 		prepare "$SYSROOT"
+		mkdir -p "$SYSROOT/install/"
 
 		compile_package "glibc" "0" "false" || abort
 		compile_package "readline" "0" "false" || abort
@@ -151,7 +152,6 @@ build_system() {
 	elif [ "$1" = "2" ]; then
 		export SYSROOT="/"
 		export PKG_TMP="false"
-		prepare "$SYSROOT"
 
 		compile_package "gettext" "0" "true" || abort
 		compile_package "bison" "0" "true" || abort

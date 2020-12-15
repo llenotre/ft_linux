@@ -7,3 +7,4 @@ cp -r kernel_src iso/install/installer
 cp compile_packages.sh iso/install/installer
 cp source_urls iso/install/installer
 cp deps iso/install/installer
+cp mount_script.sh iso/install/installer
