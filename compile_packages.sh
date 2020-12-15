@@ -148,6 +148,17 @@ build_system() {
 		compile_package "xz" "0" "true" || abort
 		compile_package "binutils" "0" "true" || abort
 		compile_package "gcc" "0" "true" || abort
+	elif [ "$1" = "2" ]; then
+		export SYSROOT="/"
+		export PKG_TMP="false"
+		prepare "$SYSROOT"
+
+		compile_package "gettext" "0" "true" || abort
+		compile_package "bison" "0" "true" || abort
+		compile_package "perl" "0" "true" || abort
+		compile_package "python" "0" "true" || abort
+		compile_package "texinfo" "0" "true" || abort
+		compile_package "util-linux" "0" "true" || abort
 	else
 		export SYSROOT="/"
 		export PKG_TMP="false"
