@@ -11,19 +11,71 @@ abort() {
 prepare() {
 	rm -f $installed_file
 	echo "Preparing sysroot in '$1'..."
-	mkdir -p $1/{etc,proc,sys,mnt,boot}
-	mkdir -p $1/{usr/bin,usr/share,usr/lib,usr/local,usr/include}
+	pushd "$1"
 
-	cd "$1"
-	ln -rs usr/bin bin
-	ln -rs usr/sbin sbin
-	ln -rs usr/lib lib
-	ln -rs usr/lib lib64
-	cd -
+	mkdir -pv {etc,proc,sys,mnt,boot,root,srv,var,tmp,opt}
+	mkdir -pv etc/{opt,sysconfig}
+	mkdir -pv media/{floppy,cdrom}
+	mkdir -pv usr/{,local/}{bin,include,lib,sbin,src}
+	mkdir -pv usr/{,local/}share/{color,dict,doc,info,locale,man}
+	mkdir -pv usr/{,local/}share/{misc,terminfo,zoneinfo}
+	mkdir -pv usr/{,local/}share/man/man{1..8}
+	mkdir -pv var/{cache,local,log,mail,opt,spool}
+	mkdir -pv var/lib/{color,misc,locate}
 
-	cd "$1/usr"
-	ln -rs lib lib64
-	cd -
+	ln -rsfv usr/bin bin
+	ln -rsfv usr/sbin sbin
+
+	pushd "usr"
+	ln -rsfv lib lib64
+	popd
+	ln -rsfv usr/lib lib
+	ln -rsfv usr/lib lib64
+	mkdir -pv lib/firmware
+
+	ln -rsfv run var/run
+	ln -rsfv run/lock var/lock
+
+	ln -rsfv proc/self/mounts etc/mtab
+
+	echo "127.0.0.1 localhost" >etc/hosts
+	cat >etc/passwd <<"EOF"
+root:x:0:0:root:/root:/bin/bash
+bin:x:1:1:bin:/dev/null:/bin/false
+daemon:x:6:6:Daemon User:/dev/null:/bin/false
+messagebus:x:18:18:D-Bus Message Daemon User:/var/run/dbus:/bin/false
+nobody:x:99:99:Unprivileged User:/dev/null:/bin/false
+EOF
+
+	cat >etc/group <<"EOF"
+root:x:0:
+bin:x:1:daemon
+sys:x:2:
+kmem:x:3:
+tape:x:4:
+tty:x:5:
+daemon:x:6:
+floppy:x:7:
+disk:x:8:
+lp:x:9:
+dialout:x:10:
+audio:x:11:
+video:x:12:
+utmp:x:13:
+usb:x:14:
+cdrom:x:15:
+adm:x:16:
+messagebus:x:18:
+input:x:24:
+mail:x:34:
+kvm:x:61:
+wheel:x:97:
+nogroup:x:99:
+users:x:999:
+EOF
+
+	touch var/log/{btmp,lastlog,faillog,wtmp}
+	popd
 
 	make -C $kernel_src headers_install ARCH=i386 INSTALL_HDR_PATH="$1/usr"
 }
@@ -114,6 +166,7 @@ build_system() {
 		mkdir -p $SYSROOT
 		prepare "$SYSROOT"
 		mkdir -p "$SYSROOT/install/"
+		cp $pwd/tmp_scripts/* "$SYSROOT"
 
 		compile_package "glibc" "0" "false" || abort
 		compile_package "readline" "0" "false" || abort
@@ -162,7 +215,6 @@ build_system() {
 	else
 		export SYSROOT="/"
 		export PKG_TMP="false"
-		prepare "$SYSROOT"
 
 		IFS=""
 		pkg_list=$(ls -1 ../pkg_sources)

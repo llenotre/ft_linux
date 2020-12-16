@@ -19,14 +19,14 @@ expect tcl
 file bzip2 glibc xz
 findutils glibc bash
 flex glibc m4 bash
-gawk glibc mpfr bash
+gawk glibc mpfr bash libsigsegv
 gcc bison flex binutils gmp mpc mpfr texinfo zstd
 gdbm glibc bash
 gettext acl gcc bash
 glibc tzdata
 gmp
 gperf texinfo
-grep glibc
+grep glibc libsigsegv
 groff perl
 grub gettext bash xz
 gzip bash glibc less
