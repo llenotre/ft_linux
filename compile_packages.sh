@@ -159,9 +159,8 @@ build_system() {
 	echo "   Preparing stage $1 system..."
 	echo "----------------------------------"
 	echo
-	if [ "$1" = "0" ]; then
+	if [ "$1" = "0" ]; then # Temporary system for initramfs
 		export SYSROOT="$pwd/initramfs/"
-		export PKG_TMP="true"
 		rm -rf $SYSROOT
 		mkdir -p $SYSROOT
 		prepare "$SYSROOT"
@@ -178,12 +177,23 @@ build_system() {
 		compile_package "coreutils" "0" "false" || abort
 		compile_package "util-linux" "0" "false"
 		compile_package "e2fsprogs" "0" "false" || abort
-	elif [ "$1" = "1" ]; then
+	elif [ "$1" = "1" ]; then # Compiling cross-compiler
 		export SYSROOT="$pwd/iso/install/"
-		export PKG_TMP="true"
-		rm -rf $SYSROOT
+		export COMPILER_STAGE="0"
 		mkdir -p $SYSROOT
 		prepare "$SYSROOT"
+
+		compile_package "binutils" "0" "false" || abort
+		compile_package "gcc" "0" "false" || abort
+		compile_package "glibc" "0" "false" || abort
+
+		export COMPILER_STAGE="1"
+		sed '/^gcc$/d' $pwd/compiled
+		rm -rf $pwd/pkg_builds/gcc/
+		compile_package "gcc" "0" "false" || abort
+	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
+		export SYSROOT="$pwd/iso/install/"
+		export COMPILER_STAGE="2"
 
 		compile_package "m4" "0" "true" || abort
 		compile_package "ncurses" "0" "true" || abort
@@ -202,19 +212,20 @@ build_system() {
 		compile_package "xz" "0" "true" || abort
 		compile_package "binutils" "0" "true" || abort
 		compile_package "gcc" "0" "true" || abort
-	elif [ "$1" = "2" ]; then
+	elif [ "$1" = "3" ]; then # Compiling in chroot
 		export SYSROOT="/"
-		export PKG_TMP="false"
+		export COMPILER_STAGE="3"
 
+		compile_package "gcc" "0" "false" || abort
 		compile_package "gettext" "0" "true" || abort
 		compile_package "bison" "0" "true" || abort
 		compile_package "perl" "0" "true" || abort
 		compile_package "python" "0" "true" || abort
 		compile_package "texinfo" "0" "true" || abort
 		compile_package "util-linux" "0" "true" || abort
-	else
+	else # Final system compilation
 		export SYSROOT="/"
-		export PKG_TMP="false"
+		export COMPILER_STAGE="4"
 
 		IFS=""
 		pkg_list=$(ls -1 ../pkg_sources)

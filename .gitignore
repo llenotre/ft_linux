@@ -13,3 +13,5 @@ initramfs.img
 compiled
 installed
 logs/
+
+tools/
