@@ -115,7 +115,7 @@ compile_package() {
 			if ! stat $compile_script_path >/dev/null 2>&1; then
 				compile_script_path=$scripts_dir/__default_compile.sh
 			fi
-			$compile_script_path >$compile_logs_path 2>&1 || {
+			$compile_script_path >>$compile_logs_path 2>&1 || {
 				print_tabs $2
 				echo "Compilation of $1 failed"
 				exit 1
@@ -131,7 +131,7 @@ compile_package() {
 			if ! stat $install_script_path >/dev/null 2>&1; then
 				install_script_path=$scripts_dir/__default_install.sh
 			fi
-			$install_script_path >$install_logs_path 2>&1 || {
+			$install_script_path >>$install_logs_path 2>&1 || {
 				print_tabs $2
 				echo "Installation of $1 failed"
 				exit 1
@@ -147,6 +147,7 @@ compile_package() {
 build_system() {
 	touch compiled
 	touch installed
+	rm -rf logs
 	mkdir -p logs
 	mkdir -p pkg_builds
 	cd pkg_builds
@@ -189,7 +190,6 @@ build_system() {
 
 		export COMPILER_STAGE="1"
 		sed '/^gcc$/d' $pwd/compiled
-		rm -rf $pwd/pkg_builds/gcc/
 		compile_package "gcc" "0" "false" || abort
 	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
 		export SYSROOT="$pwd/iso/install/"
