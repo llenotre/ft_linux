@@ -1,10 +1,11 @@
 #!/bin/bash
 
-mkdir libstdcpp_build
+mkdir -p libstdcpp_build
 
 export CXXCPP=/usr/bin/cpp
 
 if [ "$COMPILER_STAGE" = "0" ]; then
+	pwd
 	$PKG_SRC/configure            \
 		--target="$PKG_BUILD"     \
 		--prefix=$SYSROOT/tools   \
@@ -23,9 +24,10 @@ if [ "$COMPILER_STAGE" = "0" ]; then
 		--disable-libquadmath     \
 		--disable-libssp          \
 		--disable-libvtv          \
+		--disable-isl             \
 		--disable-libstdcxx       \
 		--enable-languages=c,c++
-	make
+	#make
 elif [ "$COMPILER_STAGE" = "1" ]; then
 	cd libstdcpp_build
 	$PKG_SRC/libstdc++-v3/configure \
