@@ -23,20 +23,20 @@ prepare() {
 	mkdir -pv var/{cache,local,log,mail,opt,spool}
 	mkdir -pv var/lib/{color,misc,locate}
 
-	ln -rsfv usr/bin bin
-	ln -rsfv usr/sbin sbin
+	ln -sfv usr/bin bin
+	ln -sfv usr/sbin sbin
 
 	pushd "usr"
-	ln -rsfv lib lib64
+	ln -sfv lib lib64
 	popd
-	ln -rsfv usr/lib lib
-	ln -rsfv usr/lib lib64
+	ln -sfv usr/lib lib
+	ln -sfv usr/lib lib64
 	mkdir -pv lib/firmware
 
-	ln -rsfv run var/run
-	ln -rsfv run/lock var/lock
+	ln -sfv run var/run
+	ln -sfv run/lock var/lock
 
-	ln -rsfv proc/self/mounts etc/mtab
+	ln -sfv proc/self/mounts etc/mtab
 
 	echo "127.0.0.1 localhost" >etc/hosts
 	cat >etc/passwd <<"EOF"

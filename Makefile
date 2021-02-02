@@ -1,5 +1,7 @@
+KERNEL_DIR ?= .
+
 KERNEL_VERSION = 4.19.157
-KERNEL_SRC = kernel_src/
+KERNEL_SRC = $(KERNEL_DIR)/kernel_src/
 KERNEL_BIN = $(KERNEL_SRC)/arch/x86/boot/bzImage
 KERNEL_BIN_NAME = vmlinuz-$(KERNEL_VERSION)-llenotre
 

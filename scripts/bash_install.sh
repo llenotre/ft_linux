@@ -3,5 +3,5 @@
 make DESTDIR=$SYSROOT install
 
 cd $SYSROOT/usr/bin
-ln -rs bash sh
+ln -s bash sh
 cd -

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if ! [ -z "$KERNEL_DIR" ]; then
+	cd $KERNEL_DIR
+fi
+
 dir=linux-4.19.157
 tarname=$dir.tar.xz
 
