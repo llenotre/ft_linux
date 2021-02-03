@@ -14,7 +14,7 @@ all: tmp_linux.iso
 
 $(KERNEL_BIN): Makefile
 	./download_kernel.sh
-	make -C $(KERNEL_SRC) xconfig
+	make -C $(KERNEL_SRC) menuconfig
 	make -C $(KERNEL_SRC) prepare
 	make -C $(KERNEL_SRC) kernelrelease
 	make -C $(KERNEL_SRC)
@@ -27,7 +27,7 @@ $(INITRAMFS): Makefile tmp_init compile_packages.sh source_urls deps
 
 tmp: tmp_linux.iso
 
-tmp_linux.iso: $(INITRAMFS) grub.cfg #$(KERNEL_BIN)
+tmp_linux.iso: $(KERNEL_BIN) $(INITRAMFS) grub.cfg
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
 	./compile_packages.sh 1

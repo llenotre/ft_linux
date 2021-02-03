@@ -6,4 +6,3 @@ $PKG_SRC/configure --build "$PKG_BUILD"              \
 				   --prefix="/usr"                   \
 				   --mandir="$SYSROOT/usr/share/man"
 make
-make check
