@@ -4,11 +4,10 @@ mkdir -p libstdcpp_build
 
 export CXXCPP=/usr/bin/cpp
 
-if [ "$COMPILER_STAGE" = "0" ]; then
-	pwd
+if [ "$COMPILER_STAGE" = "0" ]; then # Cross compiler
 	$PKG_SRC/configure            \
 		--target="$PKG_BUILD"     \
-		--prefix=$SYSROOT/tools   \
+		--prefix=$PREFIX          \
 		--with-glibc-version=2.11 \
 		--with-sysroot=$SYSROOT   \
 		--with-newlib             \
@@ -27,8 +26,8 @@ if [ "$COMPILER_STAGE" = "0" ]; then
 		--disable-isl             \
 		--disable-libstdcxx       \
 		--enable-languages=c,c++
-	#make
-elif [ "$COMPILER_STAGE" = "1" ]; then
+	make
+elif [ "$COMPILER_STAGE" = "1" ]; then # Cross compiler'd libstdc++
 	cd libstdcpp_build
 	$PKG_SRC/libstdc++-v3/configure \
 		--host=$PKG_HOST            \
@@ -40,7 +39,7 @@ elif [ "$COMPILER_STAGE" = "1" ]; then
 		--with-gxx-include-dir=/tools/$PKG_HOST/include/c++/10.2.0
 	make
 	cd ..
-elif [ "$COMPILER_STAGE" = "2" ]; then
+elif [ "$COMPILER_STAGE" = "2" ]; then # Builds temporary gcc
 	$PKG_SRC/configure                \
 		--build=$PKG_BUILD            \
 		--host=$PKG_HOST              \
@@ -59,7 +58,7 @@ elif [ "$COMPILER_STAGE" = "2" ]; then
 		--disable-libstdcxx           \
 		--enable-languages=c,c++
 	make
-elif [ "$COMPILER_STAGE" = "3" ]; then
+elif [ "$COMPILER_STAGE" = "3" ]; then # Building in chroot
 	cd libstdcpp_build
 	$PKG_SRC/libstdc++-v3/configure      \
 		CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
@@ -70,7 +69,7 @@ elif [ "$COMPILER_STAGE" = "3" ]; then
 		--disable-libstdcxx-pch
 	make
 	cd ..
-else
+else # Final gcc
 	$PKG_SRC/configure --prefix=/usr            \
 				       LD=ld                    \
 				       --enable-languages=c,c++ \

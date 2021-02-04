@@ -179,10 +179,10 @@ build_system() {
 		compile_package "util-linux" "0" "false"
 		compile_package "e2fsprogs" "0" "false" || abort
 	elif [ "$1" = "1" ]; then # Compiling cross-compiler
-		export SYSROOT="$pwd/iso/install/"
+		export SYSROOT="/"
+		export PREFIX="$pwd/cross_compiler/"
 		export COMPILER_STAGE="0"
-		mkdir -p $SYSROOT
-		prepare "$SYSROOT"
+		mkdir -p $PREFIX
 
 		compile_package "binutils" "0" "false" || abort
 		compile_package "gcc" "0" "false" || abort
@@ -194,6 +194,8 @@ build_system() {
 	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
 		export SYSROOT="$pwd/iso/install/"
 		export COMPILER_STAGE="2"
+		mkdir -p $SYSROOT
+		prepare "$SYSROOT"
 
 		compile_package "m4" "0" "true" || abort
 		compile_package "ncurses" "0" "true" || abort
