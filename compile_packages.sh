@@ -145,8 +145,8 @@ compile_package() {
 }
 
 build_system() {
-	touch compiled
-	touch installed
+	touch $compiled_file
+	touch $installed_file
 	rm -rf logs
 	mkdir -p logs
 	mkdir -p pkg_builds_$1
@@ -194,7 +194,7 @@ build_system() {
 		compile_package "glibc" "0" "false" || abort
 
 		export COMPILER_STAGE="1"
-		sed '/^gcc$/d' $pwd/compiled
+		sed -i '/^gcc$/d' $compiled_file
 		compile_package "gcc" "0" "false" || abort
 	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
 		export PATH="$tools_path/bin:$PATH"
