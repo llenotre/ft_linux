@@ -1,17 +1,15 @@
+*.tar.xz
 kernel_src/
+vmlinuz-*
+
+logs/
 pkg_*
 
-*.tar.xz
-
-vmlinuz-*
-iso/
-*.iso
+compiled_*
+installed_*
 
 initramfs/
 initramfs.img
 
-compiled
-installed
-logs/
-
-tools/
+iso/
+*.iso

@@ -149,8 +149,8 @@ build_system() {
 	touch installed
 	rm -rf logs
 	mkdir -p logs
-	mkdir -p pkg_builds
-	cd pkg_builds
+	mkdir -p pkg_builds_$1
+	cd pkg_builds_$1
 
 	export PKG_BUILD="x86_64-pc-linux-gnu"
 	export PKG_HOST="x86_64-lfs-linux-gnu"
@@ -252,6 +252,6 @@ pwd=$(pwd)
 kernel_src=$pwd/kernel_src
 logs_dir=$pwd/logs
 scripts_dir=$pwd/scripts
-compiled_file=$pwd/compiled
-installed_file=$pwd/installed
+compiled_file=$pwd/compiled_$1
+installed_file=$pwd/installed_$1
 build_system $1
