@@ -156,11 +156,15 @@ build_system() {
 	export PKG_HOST="x86_64-lfs-linux-gnu"
 	export MAKEFLAGS='-j8'
 
+	iso_path="$pwd/iso/install/"
+	tools_path="$pwd/iso/install/tools/"
+
 	echo "----------------------------------"
 	echo "   Preparing stage $1 system..."
 	echo "----------------------------------"
 	echo
 	if [ "$1" = "0" ]; then # Temporary system for initramfs
+		export PKG_HOST=$PKG_BUILD
 		export SYSROOT="$pwd/initramfs/"
 		rm -rf $SYSROOT
 		mkdir -p $SYSROOT
@@ -179,8 +183,8 @@ build_system() {
 		compile_package "util-linux" "0" "false"
 		compile_package "e2fsprogs" "0" "false" || abort
 	elif [ "$1" = "1" ]; then # Compiling cross-compiler
-		export SYSROOT="$pwd/iso/install/"
-		export PREFIX="$pwd/iso/install/tools/"
+		export SYSROOT="$iso_path"
+		export PREFIX="$tools_path"
 		export COMPILER_STAGE="0"
 		mkdir -p $PREFIX
 		prepare "$SYSROOT"
@@ -193,7 +197,8 @@ build_system() {
 		sed '/^gcc$/d' $pwd/compiled
 		compile_package "gcc" "0" "false" || abort
 	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
-		export SYSROOT="$pwd/iso/install/"
+		export PATH="$tools_path/bin:$PATH"
+		export SYSROOT="$iso_path"
 		export COMPILER_STAGE="2"
 		mkdir -p $SYSROOT
 
