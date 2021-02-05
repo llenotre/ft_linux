@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$COMPILER_STAGE" = "0" ]; then
-	$PKG_SRC/configure --prefix="$SYSROOT/tools" \
+	$PKG_SRC/configure --prefix="$PREFIX"        \
 					   --with-sysroot="$SYSROOT" \
 					   --target="$PKG_HOST"      \
 					   --disable-nls             \

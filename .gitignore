@@ -7,8 +7,6 @@ vmlinuz-*
 iso/
 *.iso
 
-cross_compiler/
-
 initramfs/
 initramfs.img
 

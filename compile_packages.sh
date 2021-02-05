@@ -103,7 +103,7 @@ compile_package() {
 		mkdir -p $1
 		cd $1
 
-		export PKG_SRC="../../pkg_sources/$1/"
+		export PKG_SRC="$pwd/pkg_sources/$1/"
 
 		compile_logs_path=$logs_dir/$1_compile.log
 		install_logs_path=$logs_dir/$1_install.log
@@ -153,7 +153,7 @@ build_system() {
 	cd pkg_builds
 
 	export PKG_BUILD="x86_64-pc-linux-gnu"
-	export PKG_HOST="x86_64-pc-linux-gnu"
+	export PKG_HOST="x86_64-lfs-linux-gnu"
 	export MAKEFLAGS='-j8'
 
 	echo "----------------------------------"
@@ -179,10 +179,11 @@ build_system() {
 		compile_package "util-linux" "0" "false"
 		compile_package "e2fsprogs" "0" "false" || abort
 	elif [ "$1" = "1" ]; then # Compiling cross-compiler
-		export SYSROOT="/"
-		export PREFIX="$pwd/cross_compiler/"
+		export SYSROOT="$pwd/iso/install/"
+		export PREFIX="$pwd/iso/install/tools/"
 		export COMPILER_STAGE="0"
 		mkdir -p $PREFIX
+		prepare "$SYSROOT"
 
 		compile_package "binutils" "0" "false" || abort
 		compile_package "gcc" "0" "false" || abort
@@ -195,7 +196,6 @@ build_system() {
 		export SYSROOT="$pwd/iso/install/"
 		export COMPILER_STAGE="2"
 		mkdir -p $SYSROOT
-		prepare "$SYSROOT"
 
 		compile_package "m4" "0" "true" || abort
 		compile_package "ncurses" "0" "true" || abort

@@ -2,11 +2,15 @@
 
 mkdir -p libstdcpp_build
 
+pushd $PKG_SRC
+./contrib/download_prerequisites
+popd
+
 export CXXCPP=/usr/bin/cpp
 
 if [ "$COMPILER_STAGE" = "0" ]; then # Cross compiler
 	$PKG_SRC/configure            \
-		--target="$PKG_BUILD"     \
+		--target="$PKG_HOST"      \
 		--prefix=$PREFIX          \
 		--with-glibc-version=2.11 \
 		--with-sysroot=$SYSROOT   \
@@ -23,7 +27,6 @@ if [ "$COMPILER_STAGE" = "0" ]; then # Cross compiler
 		--disable-libquadmath     \
 		--disable-libssp          \
 		--disable-libvtv          \
-		--disable-isl             \
 		--disable-libstdcxx       \
 		--enable-languages=c,c++
 	make
@@ -58,7 +61,7 @@ elif [ "$COMPILER_STAGE" = "2" ]; then # Builds temporary gcc
 		--disable-libstdcxx           \
 		--enable-languages=c,c++
 	make
-elif [ "$COMPILER_STAGE" = "3" ]; then # Building in chroot
+elif [ "$COMPILER_STAGE" = "3" ]; then # Building libstdc++ in chroot
 	cd libstdcpp_build
 	$PKG_SRC/libstdc++-v3/configure      \
 		CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
