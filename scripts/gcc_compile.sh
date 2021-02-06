@@ -11,7 +11,7 @@ export CXXCPP=/usr/bin/cpp
 if [ "$COMPILER_STAGE" = "0" ]; then # Cross compiler
 	$PKG_SRC/configure            \
 		--target="$PKG_HOST"      \
-		--prefix=$PREFIX          \
+		--prefix="$SYSROOT/tools" \
 		--with-glibc-version=2.11 \
 		--with-sysroot=$SYSROOT   \
 		--with-newlib             \
@@ -30,7 +30,7 @@ if [ "$COMPILER_STAGE" = "0" ]; then # Cross compiler
 		--disable-libstdcxx       \
 		--enable-languages=c,c++
 	make
-elif [ "$COMPILER_STAGE" = "1" ]; then # Cross compiler'd libstdc++
+elif [ "$COMPILER_STAGE" = "1" ]; then # Cross compiler's libstdc++
 	cd libstdcpp_build
 	$PKG_SRC/libstdc++-v3/configure \
 		--host=$PKG_HOST            \
@@ -39,7 +39,7 @@ elif [ "$COMPILER_STAGE" = "1" ]; then # Cross compiler'd libstdc++
 		--disable-multilib          \
 		--disable-nls               \
 		--disable-libstdcxx-pch     \
-		--with-gxx-include-dir=/$PKG_HOST/include/c++/10.2.0
+		--with-gxx-include-dir=/tools/$PKG_HOST/include/c++/10.2.0
 	make
 	cd ..
 elif [ "$COMPILER_STAGE" = "2" ]; then # Builds temporary gcc

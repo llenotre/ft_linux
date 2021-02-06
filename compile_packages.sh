@@ -152,12 +152,13 @@ build_system() {
 	mkdir -p pkg_builds_$1
 	cd pkg_builds_$1
 
+	iso_path="$pwd/iso/install/"
+	tools_path="$pwd/iso/install/tools/"
+
 	export PKG_BUILD="x86_64-pc-linux-gnu"
 	export PKG_HOST="x86_64-lfs-linux-gnu"
 	export MAKEFLAGS='-j8'
-
-	iso_path="$pwd/iso/install/"
-	tools_path="$pwd/iso/install/tools/"
+	export PATH="$tools_path/bin:$PATH"
 
 	echo "----------------------------------"
 	echo "   Preparing stage $1 system..."
@@ -184,9 +185,8 @@ build_system() {
 		compile_package "e2fsprogs" "0" "false" || abort
 	elif [ "$1" = "1" ]; then # Compiling cross-compiler
 		export SYSROOT="$iso_path"
-		export PREFIX="$tools_path"
 		export COMPILER_STAGE="0"
-		mkdir -p $PREFIX
+		mkdir -p $SYSROOT
 		prepare "$SYSROOT"
 
 		compile_package "binutils" "0" "false" || abort
@@ -198,7 +198,6 @@ build_system() {
 		sed -i '/^gcc$/d' $installed_file
 		compile_package "gcc" "0" "false" || abort
 	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
-		export PATH="$tools_path/bin:$PATH"
 		export SYSROOT="$iso_path"
 		export COMPILER_STAGE="2"
 		mkdir -p $SYSROOT

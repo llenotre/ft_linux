@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$COMPILER_STAGE" = "0" ]; then
+if [ "$COMPILER_STAGE" = "0" -o "$COMPILER_STAGE" = "2" ]; then
 	$PKG_SRC/configure                          \
 			--prefix=/usr                       \
 			--host=$PKG_HOST                    \
