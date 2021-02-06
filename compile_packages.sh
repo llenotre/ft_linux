@@ -202,23 +202,23 @@ build_system() {
 		export COMPILER_STAGE="2"
 		mkdir -p $SYSROOT
 
-		compile_package "m4" "0" "true" || abort
-		compile_package "ncurses" "0" "true" || abort
-		compile_package "bash" "0" "true" || abort
-		compile_package "coreutils" "0" "true" || abort
-		compile_package "diffutils" "0" "true" || abort
-		compile_package "file" "0" "true" || abort
-		compile_package "findutils" "0" "true" || abort
-		compile_package "gawk" "0" "true" || abort
-		compile_package "grep" "0" "true" || abort
-		compile_package "gzip" "0" "true" || abort
-		compile_package "make" "0" "true" || abort
-		compile_package "patch" "0" "true" || abort
-		compile_package "sed" "0" "true" || abort
-		compile_package "tar" "0" "true" || abort
-		compile_package "xz" "0" "true" || abort
-		compile_package "binutils" "0" "true" || abort
-		compile_package "gcc" "0" "true" || abort
+		compile_package "m4" "0" "false" || abort
+		compile_package "ncurses" "0" "false" || abort
+		compile_package "bash" "0" "false" || abort
+		compile_package "coreutils" "0" "false" || abort
+		compile_package "diffutils" "0" "false" || abort
+		compile_package "file" "0" "false" || abort
+		compile_package "findutils" "0" "false" || abort
+		compile_package "gawk" "0" "false" || abort
+		compile_package "grep" "0" "false" || abort
+		compile_package "gzip" "0" "false" || abort
+		compile_package "make" "0" "false" || abort
+		compile_package "patch" "0" "false" || abort
+		compile_package "sed" "0" "false" || abort
+		compile_package "tar" "0" "false" || abort
+		compile_package "xz" "0" "false" || abort
+		compile_package "binutils" "0" "false" || abort
+		compile_package "gcc" "0" "false" || abort
 	elif [ "$1" = "3" ]; then # Compiling in chroot
 		export SYSROOT="/"
 		export COMPILER_STAGE="3"
