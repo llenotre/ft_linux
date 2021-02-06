@@ -39,7 +39,7 @@ elif [ "$COMPILER_STAGE" = "1" ]; then # Cross compiler'd libstdc++
 		--disable-multilib          \
 		--disable-nls               \
 		--disable-libstdcxx-pch     \
-		--with-gxx-include-dir=/tools/$PKG_HOST/include/c++/10.2.0
+		--with-gxx-include-dir=/$PKG_HOST/include/c++/10.2.0
 	make
 	cd ..
 elif [ "$COMPILER_STAGE" = "2" ]; then # Builds temporary gcc

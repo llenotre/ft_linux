@@ -195,6 +195,7 @@ build_system() {
 
 		export COMPILER_STAGE="1"
 		sed -i '/^gcc$/d' $compiled_file
+		sed -i '/^gcc$/d' $installed_file
 		compile_package "gcc" "0" "false" || abort
 	elif [ "$1" = "2" ]; then # Cross-compiling temporary tools
 		export PATH="$tools_path/bin:$PATH"
