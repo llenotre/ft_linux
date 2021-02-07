@@ -38,9 +38,11 @@ tmp_linux.iso: $(KERNEL_BIN) $(INITRAMFS) grub.cfg
 	grub-mkrescue -o $@ iso
 
 clean:
-	make -C $(KERNEL_SRC) clean
-	make -C $(KERNEL_SRC) mrproper
-	rm -rf pkg_builds/
+	-make -C $(KERNEL_SRC) clean
+	-make -C $(KERNEL_SRC) mrproper
+	rm -rf compiled_* installed_*
+	rm -rf logs/
+	rm -rf pkg_builds_*/
 	rm -rf initramfs/
 	rm -rf iso/
 
@@ -49,7 +51,7 @@ fclean: clean
 	rm -rf $(KERNEL_SRC)
 	rm -f $(KERNEL_BIN)
 	rm -rf pkg_sources
-	rm initramfs.img
+	rm -f initramfs.img
 
 re: fclean all
 

@@ -155,8 +155,6 @@ build_system() {
 	iso_path="$pwd/iso/install/"
 	tools_path="$pwd/iso/install/tools/"
 
-	export PKG_BUILD="x86_64-pc-linux-gnu"
-	export PKG_HOST="x86_64-lfs-linux-gnu"
 	export MAKEFLAGS='-j8'
 	export PATH="$tools_path/bin:$PATH"
 

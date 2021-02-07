@@ -1,6 +1,12 @@
 #!/bin/bash
 
-touch $SYSROOT/etc/ld.so.conf
+cat > $SYSROOT/etc/ld.so.conf << "EOF"
+# Begin /etc/ld.so.conf
+/usr/local/lib
+/opt/lib
+
+EOF
+
 make DESTDIR="$SYSROOT" install
 
 if [ "$COMPILER_STAGE" = "0" ]; then # Cross compiler
@@ -30,10 +36,4 @@ rpc: files
 # End /etc/nsswitch.conf
 EOF
 
-	cat > $SYSROOT/etc/ld.so.conf << "EOF"
-# Begin /etc/ld.so.conf
-/usr/local/lib
-/opt/lib
-
-EOF
 fi
