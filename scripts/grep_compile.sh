@@ -7,5 +7,5 @@ $PKG_SRC/configure --build "$PKG_BUILD"              \
 				   --without-libsigsegv-prefix       \
 				   --disable-perl-regexp             \
                    --disable-nls                     \
-				   --mandir="$SYSROOT/usr/share/man"
+				   --mandir="/usr/share/man"
 make

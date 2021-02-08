@@ -5,5 +5,5 @@ $PKG_SRC/configure --build "$PKG_BUILD"              \
 				   --with-sysroot="$SYSROOT"         \
 				   --prefix="/usr"                   \
 				   --enable-shared=yes               \
-				   --mandir="$SYSROOT/usr/share/man"
+				   --mandir="/usr/share/man"
 make

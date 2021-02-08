@@ -11,7 +11,7 @@ elif [ "$COMPILER_STAGE" = "2" ]; then
 					   --host "$PKG_HOST"                \
 					   --with-sysroot="$SYSROOT"         \
 					   --prefix="$SYSROOT/usr"           \
-					   --mandir="$SYSROOT/usr/share/man" \
+					   --mandir="/usr/share/man" \
 					   --enable-ld=default               \
 					   --enable-plugins                  \
 					   --enable-shared                   \
