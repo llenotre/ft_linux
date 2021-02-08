@@ -252,4 +252,17 @@ logs_dir=$pwd/logs
 scripts_dir=$pwd/scripts
 compiled_file=$pwd/compiled_$1
 installed_file=$pwd/installed_$1
+
+export PATH=/usr/bin
+
+if [ ! -L /bin ]; then
+	PATH=/bin:$PATH;
+fi
+
+export PATH=$SYSROOT/tools/bin:$PATH
+
+export LC_ALL=POSIX
+export PKG_BUILD="x86_64-pc-linux-gnu"
+export PKG_HOST="x86_64-lfs-linux-gnu"
+
 build_system $1
