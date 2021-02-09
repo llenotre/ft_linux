@@ -153,10 +153,8 @@ build_system() {
 	cd pkg_builds_$1
 
 	iso_path="$pwd/iso/install/"
-	tools_path="$pwd/iso/install/tools/"
 
 	export MAKEFLAGS='-j8'
-	export PATH="$tools_path/bin:$PATH"
 
 	echo "----------------------------------"
 	echo "   Preparing stage $1 system..."
@@ -187,6 +185,8 @@ build_system() {
 		mkdir -p $SYSROOT
 		prepare "$SYSROOT"
 
+		export PATH="$pwd/iso/install/tools//bin:$PATH"
+
 		compile_package "binutils" "0" "false" || abort
 		compile_package "gcc" "0" "false" || abort
 		compile_package "glibc" "0" "false" || abort
@@ -199,6 +199,8 @@ build_system() {
 		export SYSROOT="$iso_path"
 		export COMPILER_STAGE="2"
 		mkdir -p $SYSROOT
+
+		export PATH="$pwd/iso/install/tools//bin:$PATH"
 
 		compile_package "m4" "0" "false" || abort
 		compile_package "ncurses" "0" "false" || abort

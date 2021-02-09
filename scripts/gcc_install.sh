@@ -15,3 +15,5 @@ elif [ "$COMPILER_STAGE" = "3" ]; then
 else
 	make DESTDIR="$SYSROOT" install
 fi
+
+ln -sv gcc $SYSROOT/usr/bin/cc
