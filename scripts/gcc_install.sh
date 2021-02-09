@@ -16,4 +16,4 @@ else
 	make DESTDIR="$SYSROOT" install
 fi
 
-ln -sv gcc $SYSROOT/usr/bin/cc
+ln -fsv gcc $SYSROOT/usr/bin/cc

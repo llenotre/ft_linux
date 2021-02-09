@@ -1,6 +1,10 @@
 #!/bin/bash
 
+build_path=$(pwd)
+
 cd $PKG_SRC
+cp * $build_path
+cd $build_path
  
 if [ "$COMPILER_STAGE" = "3" ]; then
 	sh Configure -des                                        \
@@ -31,7 +35,5 @@ else
 		-Duseshrplib                                 \
 		-Dusethreads 0</dev/tty 1>/dev/tty
 fi
-
-cd ..
 
 make
