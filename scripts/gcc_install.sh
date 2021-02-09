@@ -8,6 +8,10 @@ elif [ "$COMPILER_STAGE" = "1" ]; then
 	cd libstdcpp_build
 	make DESTDIR="$SYSROOT" install
 	cd ..
+elif [ "$COMPILER_STAGE" = "3" ]; then
+	cd libstdcpp_build
+	make install
+	cd ..
 else
 	make DESTDIR="$SYSROOT" install
 fi

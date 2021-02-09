@@ -222,12 +222,16 @@ build_system() {
 		export COMPILER_STAGE="3"
 
 		compile_package "gcc" "0" "false" || abort
-		compile_package "gettext" "0" "true" || abort
-		compile_package "bison" "0" "true" || abort
-		compile_package "perl" "0" "true" || abort
-		compile_package "python" "0" "true" || abort
-		compile_package "texinfo" "0" "true" || abort
-		compile_package "util-linux" "0" "true" || abort
+		compile_package "gettext" "0" "false" || abort
+		compile_package "bison" "0" "false" || abort
+		compile_package "perl" "0" "false" || abort
+		compile_package "python" "0" "false" || abort
+		compile_package "texinfo" "0" "false" || abort
+		compile_package "util-linux" "0" "false" || abort
+
+		echo "Clearning up..."
+		find /usr/{lib,libexec} -name \*.la -delete
+		rm -rf /usr/share/{info,man,doc}/*
 	else # Final system compilation
 		export SYSROOT="/"
 		export COMPILER_STAGE="4"

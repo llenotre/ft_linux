@@ -27,7 +27,7 @@ $(INITRAMFS): Makefile tmp_init compile_packages.sh source_urls deps
 
 tmp: tmp_linux.iso
 
-tmp_linux.iso: $(KERNEL_BIN) $(INITRAMFS) grub.cfg
+tmp_linux.iso: $(KERNEL_BIN) $(INITRAMFS) grub.cfg copy_installer.sh
 	mkdir -p iso/boot/grub/
 	cp grub.cfg iso/boot/grub/
 	./compile_packages.sh 1

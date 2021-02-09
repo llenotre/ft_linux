@@ -2,9 +2,11 @@
 
 mkdir -p libstdcpp_build
 
-pushd $PKG_SRC
-./contrib/download_prerequisites
-popd
+if [ "$COMPILER_STAGE" = "0" -o "$COMPILER_STAGE" = "1" -o "$COMPILER_STAGE" = "2" ]; then
+	pushd $PKG_SRC
+	./contrib/download_prerequisites
+	popd
+fi
 
 export CXXCPP=/usr/bin/cpp
 
