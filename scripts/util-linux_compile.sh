@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -pv $SYSROOT/var/lib/hwclock
+
 if [ "$COMPILER_STAGE" = "3" ]; then
 	$PKG_SRC/configure ADJTIME_PATH=/var/lib/hwclock/adjtime    \
 				--docdir=/usr/share/doc/util-linux-2.36         \

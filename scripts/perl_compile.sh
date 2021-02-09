@@ -3,7 +3,7 @@
 build_path=$(pwd)
 
 cd $PKG_SRC
-cp * $build_path
+cp -r * $build_path
 cd $build_path
  
 if [ "$COMPILER_STAGE" = "3" ]; then

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ "$COMPILER_STAGE" = "3" ]; then
-	./configure --prefix=/usr   \
+	$PKG_SRC/configure --prefix=/usr   \
 				--enable-shared \
 				--without-ensurepip
 else
