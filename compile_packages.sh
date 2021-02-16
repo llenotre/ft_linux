@@ -33,10 +33,10 @@ prepare() {
 	ln -sfv usr/lib lib64
 	mkdir -pv lib/firmware
 
-	ln -sfv run var/run
-	ln -sfv run/lock var/lock
+	ln -sfv ../run var/run
+	ln -sfv ../run/lock var/lock
 
-	ln -sfv proc/self/mounts etc/mtab
+	ln -sfv ../proc/self/mounts etc/mtab
 
 	echo "127.0.0.1 localhost" >etc/hosts
 	cat >etc/passwd <<"EOF"

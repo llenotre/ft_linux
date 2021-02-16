@@ -3,8 +3,8 @@
 sed -i s/mawk// $PKG_SRC/configure
 
 $PKG_SRC/configure
-make -C $PKG_SRC/include
-make -C $PKG_SRC/progs tic
+make -C include
+make -C progs tic
 
 $PKG_SRC/configure --prefix=/usr         \
             --host="$PKG_HOST"           \
