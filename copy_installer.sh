@@ -2,7 +2,7 @@
 
 mkdir -p iso/install/installer
 
-cp -r tmp_scripts iso/install/
+cp -r tmp_scripts/* iso/install/
 cp -r scripts iso/install/installer
 cp -r pkg_tarballs iso/install/installer
 cp -r kernel_src iso/install/installer

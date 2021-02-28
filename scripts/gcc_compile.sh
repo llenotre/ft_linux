@@ -65,12 +65,12 @@ elif [ "$COMPILER_STAGE" = "2" ]; then # Builds temporary gcc
 	make
 elif [ "$COMPILER_STAGE" = "3" ]; then # Building libstdc++ in chroot
 	cd libstdcpp_build
-	$PKG_SRC/libstdc++-v3/configure      \
-		CXXFLAGS="-g -O2 -D_GNU_SOURCE"  \
-		--prefix=/usr                    \
-		--disable-multilib               \
-		--disable-nls                    \
-		--host=$(uname -m)-lfs-linux-gnu \
+	$PKG_SRC/libstdc++-v3/configure     \
+		CXXFLAGS="-g -O2 -D_GNU_SOURCE" \
+		--prefix=/usr                   \
+		--disable-multilib              \
+		--disable-nls                   \
+		--host=$PKG_HOST                \
 		--disable-libstdcxx-pch
 	make
 	cd ..

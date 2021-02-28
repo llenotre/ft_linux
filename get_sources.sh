@@ -30,7 +30,7 @@ get_sources() {
 
 		if ! stat $output >/dev/null 2>&1; then
 			echo "Downloading $name (url: $url checksum: $checksum)"
-			wget -O "$output" "$url"
+			wget --no-check-certificate -O "$output" "$url"
 
 			echo $checksum >/tmp/ft_linux_checksum0
 			md5sum "$output" | cut -d ' ' -f 1 >/tmp/ft_linux_checksum1
