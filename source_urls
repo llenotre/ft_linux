@@ -77,3 +77,5 @@ zlib https://zlib.net/zlib-1.2.11.tar.xz 85adef240c5f370b308da8c938951a68
 zstd https://github.com/facebook/zstd/releases/download/v1.4.5/zstd-1.4.5.tar.gz dd0b53631303b8f972dafa6fd34beb0c
 systemd https://github.com/systemd/systemd/archive/v247.tar.gz b0d6e603b814908acc69db29bbfb023c
 libsigsegv https://ftp.gnu.org/gnu/libsigsegv/libsigsegv-2.12.tar.gz 58a6db48f79f5c735a9dce3a37c52779
+dbus https://dbus.freedesktop.org/releases/dbus/dbus-1.12.20.tar.gz dfe8a71f412e0b53be26ed4fbfdc91c4
+curl https://curl.se/download/curl-7.75.0.tar.gz 2071994cfc5079d03439915f2751c8bc
